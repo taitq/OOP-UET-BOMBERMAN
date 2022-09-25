@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  * Bomber và Enemy thông thường không thể di chuyển vào vị trí Brick khi nó chưa bị phá hủy.
  */
 public class Brick extends UnmoveEntity implements Obstacle {
-    public Brick(int x, int y, Image image, int speed) {
-        super(x, y, image, speed);
+    public Brick(int x, int y, Image image) {
+        super(x, y, image);
     }
 }
