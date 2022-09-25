@@ -16,12 +16,15 @@ public abstract class Entity {
 
     /**
      * Khởi tạo thực thể với tọa độ (x,y) có ảnh là image.
-     * @param x hoành độ.
-     * @param y tung độ.
+     *
+     * @param x     hoành độ.
+     * @param y     tung độ.
      * @param image ảnh của thực thể.
      */
     public Entity(int x, int y, Image image) {
-
+        this.x = x;
+        this.y = y;
+        this.image = image;
     }
     /**
      * Vẽ thực thể lên màn hình.
