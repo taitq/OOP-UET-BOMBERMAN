@@ -11,6 +11,6 @@ import javafx.scene.image.Image;
  */
 public class Bomb extends UnmoveEntity implements Obstacle {
     public Bomb(int x, int y, Image image, int speed) {
-        super(x, y, image, speed);
+        super(x, y, image);
     }
 }
