@@ -9,10 +9,10 @@ import javafx.scene.image.Image;
 public abstract class Entity {
     // Gốc tọa độ là góc trái trên cùng.
     // Hoành độ của thực thể.
-    private int x;
+    protected int x;
     // Tung độ của thực thể.
-    private int y;
-    private Image image;
+    protected int y;
+    protected Image image;
 
     /**
      * Khởi tạo thực thể với tọa độ (x,y) có ảnh là image.
