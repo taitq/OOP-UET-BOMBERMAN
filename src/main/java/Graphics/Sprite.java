@@ -15,6 +15,7 @@ public class Sprite {
     public static Image grassImage = null;
     public static Image playerImageRight = null;
     public static Image bombImage = null;
+    public static Image bombExplodedImage = null;
     // Kích cỡ ảnh đối tượng Grass, Wall , Brick ,Portal.
     public static final int SizeOfTile = 30;
     // Kích cỡ ảnh của Bomber, Enemy
@@ -33,6 +34,7 @@ public class Sprite {
             portalImage = new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/portal.png")), SizeOfTile, SizeOfTile, true, true);
             grassImage = new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/grass.png")), SizeOfTile, SizeOfTile, true, true);
             bombImage = new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/bomb.png")), SizeOfTile, SizeOfTile, true, true);
+            bombExplodedImage = new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/bomb_exploded.png")), SizeOfTile, SizeOfTile, true, true);
             playerImageRight = new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/player_right_1.png")), SizeOfCharacter, SizeOfCharacter, true, true);
         } catch (IOException e) {
             e.printStackTrace();
