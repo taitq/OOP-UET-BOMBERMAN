@@ -1,6 +1,7 @@
 package Graphics;
 
 import GameEntites.*;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,7 +31,6 @@ public class CreateMap {
             scanner.nextLine();
             for (int i = 0; i < HEIGHT; i++) {
                 String string = scanner.nextLine();
-                System.out.println(string);
                 List<Entity> temp = new ArrayList<>();
                 for (int j = 0; j < WIDTH; j++) {
                     switch (string.charAt(j)) {
@@ -49,4 +49,18 @@ public class CreateMap {
         }
 
     }
+
+    /**
+     * render Map on scene
+     *
+     * @param graphicsContext but ve.
+     */
+    public void renderMap(GraphicsContext graphicsContext) {
+        for (int i = 0; i < CreateMap.HEIGHT; i++) {
+            for (int j = 0; j < CreateMap.WIDTH; j++) {
+                listEntity.get(i).get(j).DrawEntity(graphicsContext);
+            }
+        }
+    }
+
 }
