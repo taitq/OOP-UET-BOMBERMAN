@@ -2,6 +2,7 @@ package GameEntites;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Thực thể game tổng quát.
@@ -13,6 +14,7 @@ public abstract class Entity {
     // Tung độ của thực thể.
     protected int y;
     protected Image image;
+    protected ImageView imageView;
 
     /**
      * Khởi tạo thực thể với tọa độ (x,y) có ảnh là image.
@@ -25,6 +27,8 @@ public abstract class Entity {
         this.x = x;
         this.y = y;
         this.image = image;
+        imageView = new ImageView(image);
+        imageView.relocate(x, y);
     }
     /**
      * Vẽ thực thể lên màn hình.
@@ -52,9 +56,18 @@ public abstract class Entity {
 
     public void setImage(Image image) {
         this.image = image;
+        imageView.setImage(image);
     }
 
     public Image getImage() {
         return image;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 }
