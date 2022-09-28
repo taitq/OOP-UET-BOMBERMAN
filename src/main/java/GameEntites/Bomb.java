@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Sprite;
 import javafx.scene.image.Image;
 
 /**
@@ -10,7 +11,26 @@ import javafx.scene.image.Image;
  * Bomb sẽ tự nổ, các đối tượng Flame  được tạo ra.
  */
 public class Bomb extends UnmoveEntity implements Obstacle {
-    public Bomb(int x, int y, Image image, int speed) {
+    private int remainingFrame;
+
+    public int getRemainingFrame() {
+        return remainingFrame;
+    }
+
+    public void setRemainingFrame(int remainingFrame) {
+        this.remainingFrame = remainingFrame;
+    }
+
+    public Bomb(int x, int y, Image image) {
         super(x, y, image);
+        remainingFrame = 120;
+    }
+
+    public void update() {
+        remainingFrame--;
+        // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
+        if(remainingFrame == 0) {
+            setImage(Sprite.bombExplodedImage);
+        }
     }
 }
