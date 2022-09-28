@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Sprite;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -29,6 +30,7 @@ public class Bomber extends MoveAnimation {
                 moveRight();
             } else if (event.getCode() == KeyCode.SPACE) {
                 //dat bomb
+
             }
         });
     }
