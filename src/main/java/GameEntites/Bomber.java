@@ -16,7 +16,9 @@ public class Bomber extends MoveAnimation {
     public Bomber(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 10;
+        numberOfBomb = 1;
+        width = 22;
+        height = 30;
     }
 
     public int getNumberOfBomb() {
@@ -45,10 +47,12 @@ public class Bomber extends MoveAnimation {
                 moveLeft();
             } else if (event.getCode() == KeyCode.RIGHT) {
                 moveRight();
-            } else if (event.getCode() == KeyCode.SPACE) {
-                setBomb(x + 11, y + 15);
+            }
+            if (event.getCode() == KeyCode.SPACE) {
+                setBomb(x + width / 2, y + height / 2);
             }
         });
+        imageView.relocate(x, y);
     }
 
     /**
@@ -66,20 +70,21 @@ public class Bomber extends MoveAnimation {
      * Đặt thêm 1 quả bomb mới.
      */
     private void setBomb(int x, int y) {
-        if (bombList.size() == numberOfBomb) {
-            throw new IllegalArgumentException("The number of booms placed exceeds the limit");
-        } else {
+        if (bombList.size() < numberOfBomb) {
             // làm tròn tọa độ x, y.
             x -= x % Sprite.SizeOfTile;
             y -= (y - Sprite.MenuSize) % Sprite.SizeOfTile;
 
             //kiểm tra xem ô này đã có bomb đc đặt hay chưa.
+            boolean status = false;
             for (Bomb bomb : bombList) {
                 if (bomb.getX() == x && bomb.getY() == y) {
-                    throw new IllegalArgumentException("This box already has bombs");
+                    status = true;
                 }
             }
-            bombList.add(new Bomb(x, y, Sprite.bombImage));
+            if(!status) {
+                bombList.add(new Bomb(x, y, Sprite.bomb));
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
  */
 public class Bomb extends UnmoveEntity implements Obstacle {
     private int remainingFrame;
+    private boolean explode;
 
     public int getRemainingFrame() {
         return remainingFrame;
@@ -24,13 +25,14 @@ public class Bomb extends UnmoveEntity implements Obstacle {
     public Bomb(int x, int y, Image image) {
         super(x, y, image);
         remainingFrame = 120;
+        explode = false;
     }
 
     public void update() {
         remainingFrame--;
         // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
         if(remainingFrame == 0) {
-            setImage(Sprite.bombExplodedImage);
+            setImage(Sprite.bomb_exploded);
         }
     }
 }

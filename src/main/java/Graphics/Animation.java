@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Animation {
     public static void animation(Scene scene, Group group) {
-        Bomber bomber = new Bomber(Sprite.SizeOfTile, Sprite.MenuSize + Sprite.SizeOfTile, Sprite.playerImageRight, 5);
+        Bomber bomber = new Bomber(Sprite.SizeOfTile, Sprite.MenuSize + Sprite.SizeOfTile, Sprite.player_right_1, 5);
         group.getChildren().add(bomber.getImageView());
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
@@ -21,7 +21,6 @@ public class Animation {
                 bomb.update();
             }
             bomber.update(scene);
-            bomber.getImageView().relocate(bomber.getX(), bomber.getY());
             for(Bomb bomb: bombList) {
                 group.getChildren().add(bomb.getImageView());
             }

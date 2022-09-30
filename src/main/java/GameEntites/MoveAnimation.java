@@ -1,5 +1,7 @@
 package GameEntites;
 
+import Graphics.Sprite;
+import Graphics.CreateMap;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
@@ -8,6 +10,9 @@ import javafx.scene.image.Image;
  */
 public abstract class MoveAnimation extends AnimationEntity {
     protected int speed;
+    protected int width;
+    protected int height;
+
     public MoveAnimation(int x, int y, Image image, int speed) {
         super(x, y, image);
         this.speed = speed;
