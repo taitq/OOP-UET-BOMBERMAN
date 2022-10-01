@@ -5,6 +5,8 @@ import Graphics.CreateMap;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
+import java.util.List;
+
 /**
  * Đối tượng có thể di chuyển.
  */

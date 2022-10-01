@@ -1,5 +1,6 @@
 package GameEntites;
 
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**

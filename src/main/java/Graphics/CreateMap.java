@@ -1,6 +1,7 @@
 package Graphics;
 
 import GameEntites.*;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.FileInputStream;
@@ -51,14 +52,14 @@ public class CreateMap {
     }
 
     /**
-     * render Map on scene
+     * add Map to group
      *
-     * @param graphicsContext but ve.
+     * @param group group.
      */
-    public void renderMap(GraphicsContext graphicsContext) {
+    public void renderMap(Group group) {
         for (int i = 0; i < CreateMap.HEIGHT; i++) {
             for (int j = 0; j < CreateMap.WIDTH; j++) {
-                listEntity.get(i).get(j).DrawEntity(graphicsContext);
+                group.getChildren().add(listEntity.get(i).get(j).getImageView());
             }
         }
     }

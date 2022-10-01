@@ -3,6 +3,8 @@ package GameEntites;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 
 /**
  * Thực thể game tổng quát.
@@ -38,6 +40,7 @@ public abstract class Entity {
         graphicsContext.drawImage(image,x,y);
     }
 
+
     public int getX() {
         return x;
     }
@@ -70,4 +73,5 @@ public abstract class Entity {
     public ImageView getImageView() {
         return imageView;
     }
+
 }

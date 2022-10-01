@@ -34,13 +34,11 @@ public class Main extends Application {
         canvas = new Canvas(WIDTH, HEIGHT);
         Group group = new Group();
         group.getChildren().add(canvas);
-        Scene scene = new Scene(group);
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        Animation.animation(scene, group);
-
         CreateMap map1 = new CreateMap();
         map1.createMap(1);
-        map1.renderMap(graphicsContext);
+        map1.renderMap(group);
+        Scene scene = new Scene(group);
+        Animation.animation(scene, group);
         primaryStage.setScene(scene);
         primaryStage.show();
 

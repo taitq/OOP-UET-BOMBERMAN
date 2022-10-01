@@ -1,6 +1,9 @@
 package Graphics;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
+import javafx.scene.image.PixelWriter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +30,7 @@ public class Sprite {
     public static final Image player_right_1 = newImage("player_right_1", SizeOfCharacter, SizeOfCharacter);
     public static final Image bomb = newImage("bomb", SizeOfTile, SizeOfTile);
     public static final Image bomb_exploded = newImage("bomb_exploded", SizeOfTile, SizeOfTile);
-
+    public static final Image balloonEnemy = newImage("balloom_right1", SizeOfCharacter, SizeOfCharacter);
     //hàm set image rút gọn.
     private static Image newImage(String name, int w, int h) {
         Image image = null;
