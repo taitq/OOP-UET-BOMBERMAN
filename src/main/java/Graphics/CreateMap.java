@@ -1,6 +1,7 @@
 package Graphics;
 
 import GameEntites.*;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.FileInputStream;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 public class CreateMap {
     public static int HEIGHT;
     public static int WIDTH;
-    public List<List<Entity>> listEntity = new ArrayList<>();
+    public static List<List<Entity>> listEntity = new ArrayList<>();
 
     /**
      * tạo map.
@@ -34,11 +35,11 @@ public class CreateMap {
                 List<Entity> temp = new ArrayList<>();
                 for (int j = 0; j < WIDTH; j++) {
                     switch (string.charAt(j)) {
-                        case '#' -> temp.add(new Wall(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.wallImage));
-                        case '*' -> temp.add(new Brick(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.brickImage));
-                        case 'x' -> temp.add(new Portal(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.portalImage));
-                        case 'p' -> temp.add(new Bomber(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.playerImageRight, 2, 1));
-                        default -> temp.add(new Grass(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.grassImage));
+                        case '#' -> temp.add(new Wall(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.wall));
+                        case '*' -> temp.add(new Brick(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.brick));
+                        case 'x' -> temp.add(new Portal(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.portal));
+                        case 'p' -> temp.add(new Bomber(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.player_right_1, 2));
+                        default -> temp.add(new Grass(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.grass));
                     }
                 }
                 listEntity.add(temp);
@@ -51,14 +52,14 @@ public class CreateMap {
     }
 
     /**
-     * render Map on scene
+     * add Map to group
      *
-     * @param graphicsContext but ve.
+     * @param group group.
      */
-    public void renderMap(GraphicsContext graphicsContext) {
+    public void renderMap(Group group) {
         for (int i = 0; i < CreateMap.HEIGHT; i++) {
             for (int j = 0; j < CreateMap.WIDTH; j++) {
-                listEntity.get(i).get(j).DrawEntity(graphicsContext);
+                group.getChildren().add(listEntity.get(i).get(j).getImageView());
             }
         }
     }
