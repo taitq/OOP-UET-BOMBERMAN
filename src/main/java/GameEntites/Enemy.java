@@ -9,5 +9,7 @@ import javafx.scene.image.Image;
 public abstract class Enemy extends MoveAnimation {
     public Enemy(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
+        width = 30;
+        height = 30;
     }
 }

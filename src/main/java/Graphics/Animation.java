@@ -3,6 +3,7 @@ package Graphics;
 import GameEntites.BalloonEnemy;
 import GameEntites.Bomber;
 import GameEntites.Bomb;
+import GameEntites.Enemy;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,9 +17,10 @@ public class Animation {
     private static final int FPS = 30;
     private static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static long lastTime;
+    public static Bomber bomber;
 
     public static void animation(Scene scene, Group group) {
-        Bomber bomber = new Bomber(Sprite.SizeOfTile, Sprite.MenuSize + Sprite.SizeOfTile, Sprite.player_right_1, 2);
+        bomber = new Bomber(Sprite.SizeOfTile, Sprite.MenuSize + Sprite.SizeOfTile, Sprite.player_right_1, 3);
         BalloonEnemy balloonEnemy = new BalloonEnemy(300, 300, Sprite.balloonEnemy, 5);
 
         group.getChildren().add(balloonEnemy.getImageView());
