@@ -31,6 +31,7 @@ public class Sprite {
     public static final Image bomb = newImage("bomb", SizeOfTile, SizeOfTile);
     public static final Image bomb_exploded = newImage("bomb_exploded", SizeOfTile, SizeOfTile);
     public static final Image balloonEnemy = newImage("balloom_right1", SizeOfCharacter, SizeOfCharacter);
+    public static final Image gameOver = newImage("gameOver", 930, 420);
     //hàm set image rút gọn.
     private static Image newImage(String name, int w, int h) {
         Image image = null;

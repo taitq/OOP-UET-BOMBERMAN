@@ -1,11 +1,11 @@
 package Graphics;
 
-import GameEntites.BalloonEnemy;
-import GameEntites.Bomber;
 import GameEntites.Bomb;
+import GameEntites.Enemy;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -16,32 +16,36 @@ public class Animation {
     private static final int FPS = 30;
     private static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static long lastTime;
+    public static boolean gameOver = false;
+    public static CreateMap map = new CreateMap();
 
     public static void animation(Scene scene, Group group) {
-        Bomber bomber = new Bomber(Sprite.SizeOfTile, Sprite.MenuSize + Sprite.SizeOfTile, Sprite.player_right_1, 2);
-        BalloonEnemy balloonEnemy = new BalloonEnemy(300, 300, Sprite.balloonEnemy, 5);
 
-        group.getChildren().add(balloonEnemy.getImageView());
-        group.getChildren().add(bomber.getImageView());
+        map.createMap(1);
+        map.renderMap(group);
         lastTime = System.nanoTime();
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                List<Bomb> bombList = bomber.getBombList();
-                for (Bomb bomb : bombList) {
-                    group.getChildren().remove(bomb.getImageView());
-                    bomb.update();
-                }
-                bomber.update(scene);
-                balloonEnemy.randomMove();
-                for (Bomb bomb : bombList) {
-                    group.getChildren().add(bomb.getImageView());
-                }
-
-                try {
-                    TimeUnit.NANOSECONDS.sleep(delay());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (!gameOver) {
+                    List<Bomb> bombList = map.bomberList.get(0).getBombList();
+                    for (Bomb bomb : bombList) {
+                        group.getChildren().remove(bomb.getImageView());
+                        bomb.update();
+                    }
+                    map.bombersHandleInput(scene);
+                    map.enemyMove();
+                    for (Bomb bomb : bombList) {
+                        group.getChildren().add(bomb.getImageView());
+                    }
+                    checkGameOver();
+                    try {
+                        TimeUnit.NANOSECONDS.sleep(delay());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    group.getChildren().add(new ImageView(Sprite.gameOver));
                 }
             }
         };
@@ -57,6 +61,17 @@ public class Animation {
             return TIME_PER_FRAME - delayTime;
         }
         return 0;
+    }
+
+    /**
+     * kiem tra xem game over.
+     *
+     * @return true if end game.
+     */
+    public static void checkGameOver() {
+        if (map.bomberList.get(0).checkCollisonEnemy(map.enemyList)) {
+            gameOver = true;
+        }
     }
 
 }

@@ -18,11 +18,10 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main extends Application {
-    public static final int WIDTH = 930;
-    public static final int HEIGHT = 420;
-
     private Canvas canvas;
     private Scene scene, scene1;
+    public static final int WIDTH = 930;
+    public static final int HEIGHT = 420;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,12 +30,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        canvas = new Canvas(WIDTH, HEIGHT);
+        canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
         Group group = new Group();
         group.getChildren().add(canvas);
-        CreateMap map1 = new CreateMap();
-        map1.createMap(1);
-        map1.renderMap(group);
+
         Scene scene = new Scene(group);
         Animation.animation(scene, group);
         primaryStage.setScene(scene);
