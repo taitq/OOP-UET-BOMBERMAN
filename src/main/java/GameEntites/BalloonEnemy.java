@@ -13,7 +13,7 @@ public class BalloonEnemy extends Enemy {
         super(x, y, image, speed);
     }
 
-    public void randomMove() {
+    public void move() {
         Random random = new Random();
         int direction = random.nextInt(4);
         switch (direction) {

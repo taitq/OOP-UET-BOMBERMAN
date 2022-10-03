@@ -12,4 +12,6 @@ public abstract class Enemy extends MoveAnimation {
         width = 30;
         height = 30;
     }
+
+    public abstract void move();
 }

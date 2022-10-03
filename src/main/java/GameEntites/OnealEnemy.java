@@ -10,4 +10,9 @@ public class OnealEnemy extends Enemy {
     public OnealEnemy(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
     }
+
+    @Override
+    public void move() {
+
+    }
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class Bomber extends MoveAnimation {
     private List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb;
+    // bien kiem tra xem bomber live or die.
+    private static boolean live = true;
 
     public Bomber(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
@@ -19,6 +21,14 @@ public class Bomber extends MoveAnimation {
         numberOfBomb = 1;
         width = 22;
         height = 30;
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        Bomber.live = live;
     }
 
     public int getNumberOfBomb() {
@@ -82,9 +92,27 @@ public class Bomber extends MoveAnimation {
                     status = true;
                 }
             }
-            if(!status) {
+            if (!status) {
                 bombList.add(new Bomb(x, y, Sprite.bomb));
             }
         }
+    }
+
+    /**
+     * check collison.
+     *
+     * @param enemyList danh sach enemy.
+     * @return true if collison with enemy, false if not collison.
+     */
+    public boolean checkCollisonEnemy(List<Enemy> enemyList) {
+        for (Enemy enemy : enemyList) {
+            if (imageView.getBoundsInParent().intersects(enemy.getImageView().getBoundsInParent())) {
+                System.out.println("aaa");
+                live = false;
+                return true;
+            }
+            ;
+        }
+        return false;
     }
 }

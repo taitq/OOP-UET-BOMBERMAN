@@ -30,6 +30,8 @@ public abstract class Entity {
         this.y = y;
         this.image = image;
         imageView = new ImageView(image);
+        imageView.setX(x);
+        imageView.setY(y);
         imageView.relocate(x, y);
     }
     /**
