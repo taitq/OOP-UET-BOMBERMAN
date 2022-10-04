@@ -22,6 +22,7 @@ public class Sprite {
     public static int SizeOfBomb = 30;
     // Kích thước thanh menu trong game
     public static int MenuSize = 30;
+    private static final int TOLERANCE_THRESHOLD = 0xFF;
 
     public static final Image wall = newImage("wall", SizeOfTile, SizeOfTile) ;
     public static final Image brick = newImage("brick", SizeOfTile, SizeOfTile);
@@ -32,15 +33,44 @@ public class Sprite {
     public static final Image bomb_exploded = newImage("bomb_exploded", SizeOfTile, SizeOfTile);
     public static final Image balloonEnemy = newImage("balloom_right1", SizeOfCharacter, SizeOfCharacter);
     public static final Image gameOver = newImage("gameOver", 930, 420);
+
     //hàm set image rút gọn.
     private static Image newImage(String name, int w, int h) {
         Image image = null;
         try {
-            image = new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/" + name + ".png")), w, h, true, true);
+            image = makeTransparent(new Image(Files.newInputStream(Paths.get("src/main/resources/sprites/" + name + ".png")), w, h, true, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
+    }
+
+    // remove background
+    public static Image makeTransparent(Image inputImage) {
+        int W = (int) inputImage.getWidth();
+        int H = (int) inputImage.getHeight();
+        WritableImage outputImage = new WritableImage(W, H);
+        PixelReader reader = inputImage.getPixelReader();
+        PixelWriter writer = outputImage.getPixelWriter();
+        for (int y = 0; y < H; y++) {
+            for (int x = 0; x < W; x++) {
+                int argb = reader.getArgb(x, y);
+
+                int r = (argb >> 16) & 0xFF;
+                int g = (argb >> 8) & 0xFF;
+                int b = argb & 0xFF;
+
+                if (r == 0xFF
+                        && g == 0
+                        && b == 0xFF) {
+                    argb &= 0x00FFFFFF;
+                }
+
+                writer.setArgb(x, y, argb);
+            }
+        }
+
+        return outputImage;
     }
 
 }
