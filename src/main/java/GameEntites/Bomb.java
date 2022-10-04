@@ -32,7 +32,7 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         remainingFrame--;
         // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
         if(remainingFrame == 0) {
-            setImage(Sprite.bomb_exploded);
+            setImage(Sprite.bomb_exploded[0]);
         }
     }
 }

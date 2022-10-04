@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Animation {
 
-    private static final int FPS = 30;
+    private static final int FPS = 60;
     private static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static long lastTime;
     public static boolean gameOver = false;
