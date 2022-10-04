@@ -69,11 +69,7 @@ public class Bomber extends MoveAnimation {
      * xóa những bomb đã nổ.
      */
     private void removeBomb() {
-        for(Bomb bomb: bombList) {
-            if(bomb.getRemainingFrame() < -40) {
-                bombList.remove(bomb);
-            }
-        }
+        bombList.removeIf(bomb -> bomb.getRemainingFrame() < -40);
     }
 
     /**
@@ -90,6 +86,7 @@ public class Bomber extends MoveAnimation {
             for (Bomb bomb : bombList) {
                 if (bomb.getX() == x && bomb.getY() == y) {
                     status = true;
+                    break;
                 }
             }
             if (!status) {

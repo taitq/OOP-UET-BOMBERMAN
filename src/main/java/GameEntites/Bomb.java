@@ -1,6 +1,8 @@
 package GameEntites;
 
+import Graphics.CreateMap;
 import Graphics.Sprite;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 /**
@@ -28,11 +30,33 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         explode = false;
     }
 
-    public void update() {
+    public void update(Group group) {
         remainingFrame--;
         // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
-        if(remainingFrame == 0) {
-            setImage(Sprite.bomb_exploded[0]);
+        if (remainingFrame == 0) {
+            int r = (y - Sprite.MenuSize) / Sprite.SizeOfTile;
+            int c = x / Sprite.SizeOfTile;
+            imageView.setImage(Sprite.bomb_exploded);
+            if (CreateMap.listEntity.get(r).get(c + 1) instanceof Brick) {
+                CreateMap.listEntity.get(r).get(c + 1).getImageView().setImage(Sprite.grass);
+                Grass grass = new Grass(x, y + Sprite.SizeOfBomb, Sprite.grass);
+                CreateMap.listEntity.get(r).set(c + 1, grass);
+            }
+            if (CreateMap.listEntity.get(r).get(c - 1) instanceof Brick) {
+                CreateMap.listEntity.get(r).get(c - 1).getImageView().setImage(Sprite.grass);
+                Grass grass = new Grass(x, y - Sprite.SizeOfBomb, Sprite.grass);
+                CreateMap.listEntity.get(r).set(c - 1, grass);
+            }
+            if (CreateMap.listEntity.get(r - 1).get(c) instanceof Brick) {
+                CreateMap.listEntity.get(r - 1).get(c).getImageView().setImage(Sprite.grass);
+                Grass grass = new Grass(x - Sprite.SizeOfBomb, y, Sprite.grass);
+                CreateMap.listEntity.get(r - 1).set(c, grass);
+            }
+            if (CreateMap.listEntity.get(r + 1).get(c) instanceof Brick) {
+                CreateMap.listEntity.get(r + 1).get(c).getImageView().setImage(Sprite.grass);
+                Grass grass = new Grass(x + Sprite.SizeOfBomb, y, Sprite.grass);
+                CreateMap.listEntity.get(r + 1).set(c, grass);
+            }
         }
     }
 }

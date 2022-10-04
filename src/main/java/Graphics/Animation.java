@@ -31,8 +31,9 @@ public class Animation {
                     List<Bomb> bombList = map.bomberList.get(0).getBombList();
                     for (Bomb bomb : bombList) {
                         group.getChildren().remove(bomb.getImageView());
-                        bomb.update();
+                        bomb.update(group);
                     }
+
                     map.bombersHandleInput(scene);
                     map.enemyMove();
                     for (Bomb bomb : bombList) {
