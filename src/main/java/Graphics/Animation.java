@@ -45,6 +45,7 @@ public class Animation {
                         e.printStackTrace();
                     }
                 } else {
+                    // TO DO FOR GAME OVER
                     group.getChildren().add(new ImageView(Sprite.gameOver));
                 }
             }

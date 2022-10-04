@@ -18,7 +18,7 @@ public class Bomber extends MoveAnimation {
     public Bomber(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 1;
+        numberOfBomb = 3;
         width = 22;
         height = 30;
     }
@@ -99,7 +99,7 @@ public class Bomber extends MoveAnimation {
     }
 
     /**
-     * check collison.
+     * check collison with enemy.
      *
      * @param enemyList danh sach enemy.
      * @return true if collison with enemy, false if not collison.
