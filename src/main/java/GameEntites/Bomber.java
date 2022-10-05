@@ -90,7 +90,7 @@ public class Bomber extends MoveAnimation {
                 }
             }
             if (!status) {
-                bombList.add(new Bomb(x, y, Sprite.bomb));
+                bombList.add(new Bomb(x, y, Sprite.bomb[0]));
             }
         }
     }
