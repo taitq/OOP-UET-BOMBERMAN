@@ -2,6 +2,7 @@ package Graphics;
 
 import GameEntites.Bomb;
 import GameEntites.Enemy;
+import GameEntites.Flame;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -31,13 +32,19 @@ public class Animation {
                     List<Bomb> bombList = map.bomberList.get(0).getBombList();
                     for (Bomb bomb : bombList) {
                         group.getChildren().remove(bomb.getImageView());
-                        bomb.update(group);
+                        for (Flame flame : bomb.flameList) {
+                            group.getChildren().remove(flame.getImageView());
+                        }
+                        bomb.update();
                     }
 
                     map.bombersHandleInput(scene);
                     map.enemyMove();
                     for (Bomb bomb : bombList) {
                         group.getChildren().add(bomb.getImageView());
+                        for (Flame flame : bomb.flameList) {
+                            group.getChildren().add(flame.getImageView());
+                        }
                     }
                     checkGameOver();
                     try {

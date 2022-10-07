@@ -1,13 +1,12 @@
 package GameEntites;
 
 import Graphics.Sprite;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends MoveAnimation {
     private List<Bomb> bombList = new ArrayList<>();
@@ -108,7 +107,6 @@ public class Bomber extends MoveAnimation {
                 live = false;
                 return true;
             }
-            ;
         }
         return false;
     }
