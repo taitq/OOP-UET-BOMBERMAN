@@ -1,13 +1,12 @@
 package GameEntites;
 
 import Graphics.Sprite;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends MoveAnimation {
     private List<Bomb> bombList = new ArrayList<>();
@@ -18,7 +17,7 @@ public class Bomber extends MoveAnimation {
     public Bomber(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 1;
+        numberOfBomb = 3;
         width = 22;
         height = 30;
     }
@@ -69,11 +68,7 @@ public class Bomber extends MoveAnimation {
      * xóa những bomb đã nổ.
      */
     private void removeBomb() {
-        for(Bomb bomb: bombList) {
-            if(bomb.getRemainingFrame() < -40) {
-                bombList.remove(bomb);
-            }
-        }
+        bombList.removeIf(bomb -> bomb.getRemainingFrame() < -40);
     }
 
     /**
@@ -90,16 +85,17 @@ public class Bomber extends MoveAnimation {
             for (Bomb bomb : bombList) {
                 if (bomb.getX() == x && bomb.getY() == y) {
                     status = true;
+                    break;
                 }
             }
             if (!status) {
-                bombList.add(new Bomb(x, y, Sprite.bomb));
+                bombList.add(new Bomb(x, y, Sprite.bomb[0]));
             }
         }
     }
 
     /**
-     * check collison.
+     * check collison with enemy.
      *
      * @param enemyList danh sach enemy.
      * @return true if collison with enemy, false if not collison.
@@ -111,7 +107,6 @@ public class Bomber extends MoveAnimation {
                 live = false;
                 return true;
             }
-            ;
         }
         return false;
     }
