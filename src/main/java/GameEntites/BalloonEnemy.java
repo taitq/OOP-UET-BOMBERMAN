@@ -40,4 +40,25 @@ public class BalloonEnemy extends Enemy {
         setTimeDie(getTimeDie() - 1);
         setImage(Sprite.balloon_dead);
     }
+
+    @Override
+    public void move() {
+        Random random = new Random();
+        int direction = random.nextInt(4);
+        switch (direction) {
+            case 0 -> {
+                moveUp();
+            }
+            case 1 -> {
+                moveDown();
+            }
+            case 2 -> {
+                moveLeft();
+            }
+            case 3 -> {
+                moveRight();
+            }
+        }
+        imageView.relocate(getX(), getY());
+    }
 }

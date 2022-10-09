@@ -19,9 +19,14 @@ public class OnealEnemy extends Enemy {
     }
 
     @Override
+    public void move() {
+
+    }
+
+    @Override
     public char getDirection() {
-        if(oldX == x && oldY == y) {
-            if(direction == 'u') {
+        if (oldX == x && oldY == y) {
+            if (direction == 'u') {
                 direction = 'd';
             } else {
                 direction = 'u';

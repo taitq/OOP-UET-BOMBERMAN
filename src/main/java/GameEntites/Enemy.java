@@ -117,4 +117,5 @@ public abstract class Enemy extends MoveAnimation {
         }
         return tmp;
     }
+
 }

@@ -41,8 +41,6 @@ public class Animation {
                     }
 
                     map.bombersHandleInput();
-                    map.enemyMove();
-                    map.bombersHandleInput();
                     // update Enemy list
                     map.updateEnemyList(group);
                     // update flame list to group.
@@ -60,7 +58,7 @@ public class Animation {
                     }
                 } else {
                     // TO DO FOR GAME OVER
-                    group.getChildren().add(new ImageView(Sprite.gameOver));
+
                 }
             }
         };
