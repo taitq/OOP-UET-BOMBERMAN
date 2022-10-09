@@ -50,9 +50,14 @@ public class CreateMap {
                             bomberList.add(bomber);
                         }
                         case '1' -> {
-                            BalloonEnemy balloonEnemy = new BalloonEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.balloon_left[0], 5);
+                            BalloonEnemy balloonEnemy = new BalloonEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.balloon_left[0], 2);
                             temp.add(balloonEnemy);
                             enemyList.add(balloonEnemy);
+                        }
+                        case '2' -> {
+                            OnealEnemy onealEnemy = new OnealEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.oneal_left[0], 3);
+                            temp.add(onealEnemy);
+                            enemyList.add(onealEnemy);
                         }
                         default -> temp.add(new Grass(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.grass));
                     }
@@ -98,7 +103,7 @@ public class CreateMap {
      */
     public void enemyMove() {
         for (Enemy enemy : enemyList) {
-            enemy.move();
+            enemy.update();
         }
     }
 

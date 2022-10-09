@@ -30,7 +30,8 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         explode = false;
     }
 
-    public void update(Group group) {
+    @Override
+    public void update() {
         remainingFrame--;
         // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
         if (remainingFrame == 0) {

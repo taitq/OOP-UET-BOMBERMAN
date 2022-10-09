@@ -87,6 +87,7 @@ public class Bomber extends MoveAnimation {
     /**
      * cập nhật các trạng thái cho bomber.
      */
+    @Override
     public void update() {
         removeBomb();
         if(live == false) {

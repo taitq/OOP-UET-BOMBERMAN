@@ -10,4 +10,6 @@ public abstract class AnimationEntity extends Entity {
     public AnimationEntity(int x, int y, Image image) {
         super(x, y, image);
     }
+
+    public abstract void update();
 }
