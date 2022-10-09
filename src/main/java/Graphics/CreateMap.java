@@ -29,7 +29,7 @@ public class CreateMap {
      *
      * @param level level của map.
      */
-    public void createMap(int level) {
+    public void createMap(int level, Scene scene) {
         try {
             FileInputStream fileInputStream = new FileInputStream("src/main/resources/Level/Level1.txt");
             Scanner scanner = new Scanner(fileInputStream);
@@ -45,7 +45,7 @@ public class CreateMap {
                         case '*' -> temp.add(new Brick(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.brick));
                         case 'x' -> temp.add(new Portal(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.portal));
                         case 'p' -> {
-                            Bomber bomber = new Bomber(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.player_down[0], 10);
+                            Bomber bomber = new Bomber(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.player_down[0], 3, scene);
                             temp.add(bomber);
                             bomberList.add(bomber);
                         }
@@ -105,9 +105,9 @@ public class CreateMap {
     /**
      * cac bomber xu li su kien.
      */
-    public void bombersHandleInput(Scene scene) {
+    public void bombersHandleInput() {
         for (Bomber bomber : bomberList) {
-            bomber.update(scene);
+            bomber.update();
         }
     }
 }

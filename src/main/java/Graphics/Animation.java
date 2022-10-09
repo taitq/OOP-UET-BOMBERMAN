@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Animation {
 
-    private static final int FPS = 60;
+    private static final int FPS = 30;
     private static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static long lastTime;
     public static boolean gameOver = false;
@@ -21,7 +21,7 @@ public class Animation {
 
     public static void animation(Scene scene, Group group) {
 
-        map.createMap(1);
+        map.createMap(1, scene);
         map.renderMap(group);
         lastTime = System.nanoTime();
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -34,7 +34,7 @@ public class Animation {
                         bomb.update(group);
                     }
 
-                    map.bombersHandleInput(scene);
+                    map.bombersHandleInput();
                     map.enemyMove();
                     for (Bomb bomb : bombList) {
                         group.getChildren().add(bomb.getImageView());

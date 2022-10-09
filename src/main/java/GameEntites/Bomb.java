@@ -34,9 +34,10 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         remainingFrame--;
         // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
         if (remainingFrame == 0) {
+            explode = true;
             int r = (y - Sprite.MenuSize) / Sprite.SizeOfTile;
             int c = x / Sprite.SizeOfTile;
-            imageView.setImage(Sprite.bomb_exploded);
+            imageView.setImage(Sprite.bomb_exploded[0]);
             if (CreateMap.listEntity.get(r).get(c + 1) instanceof Brick) {
                 CreateMap.listEntity.get(r).get(c + 1).getImageView().setImage(Sprite.grass);
                 Grass grass = new Grass(x, y + Sprite.SizeOfBomb, Sprite.grass);
