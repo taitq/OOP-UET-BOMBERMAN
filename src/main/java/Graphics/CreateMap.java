@@ -89,7 +89,7 @@ public class CreateMap {
                 }
             }
         }
-        // add cac enemy vao group.
+        // render enemy list.
         for (Enemy enemy : enemyList) {
             group.getChildren().add(enemy.getImageView());
         }
@@ -100,11 +100,32 @@ public class CreateMap {
     }
 
     /**
-     * cac enemy di chuyen.
+     * update list enemy.
      */
-    public void enemyMove() {
+    public void updateEnemyList(Group group) {
+        List<Flame> flameList = new ArrayList<>();
+        for (Bomber bomber : bomberList) {
+            for (Bomb bomb : bomber.getBombList()) {
+                flameList.addAll(bomb.flameList);
+            }
+        }
+        List<Enemy> temp = new ArrayList<>();
         for (Enemy enemy : enemyList) {
             enemy.update();
+            enemy.checkcollisonFlame(flameList);
+            if (!enemy.isKilled) {
+                enemy.move();
+            } else {
+                enemy.killed();
+                temp.add(enemy);
+            }
+        }
+        // remove enemy after die 120 milisecond.
+        for (Enemy enemy : temp) {
+            if (enemy.getTimeDie() < 0) {
+                enemyList.removeAll(temp);
+                group.getChildren().remove(enemy.getImageView());
+            }
         }
     }
 
@@ -116,4 +137,5 @@ public class CreateMap {
             bomber.update();
         }
     }
+
 }

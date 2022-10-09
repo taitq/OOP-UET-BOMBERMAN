@@ -34,4 +34,10 @@ public class BalloonEnemy extends Enemy {
         oldY = y;
         return direction;
     }
+
+    @Override
+    public void killed() {
+        setTimeDie(getTimeDie() - 1);
+        setImage(Sprite.balloon_dead);
+    }
 }

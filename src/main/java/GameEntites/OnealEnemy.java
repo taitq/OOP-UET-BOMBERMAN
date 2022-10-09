@@ -31,4 +31,9 @@ public class OnealEnemy extends Enemy {
         oldY = y;
         return direction;
     }
+
+    @Override
+    public void killed() {
+        setImage(Sprite.balloon_dead);
+    }
 }
