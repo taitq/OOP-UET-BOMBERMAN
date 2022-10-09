@@ -20,7 +20,8 @@ public class Sprite {
     public static int SizeOfBomb = 30;
     // Kích thước thanh menu trong game
     public static int MenuSize = 30;
-    private static final int TOLERANCE_THRESHOLD = 0xFF;
+    public static int SizeOfFlame = 30;
+
 
     /*
     public static final Image wall = newImage("wall", SizeOfTile, SizeOfTile) ;
@@ -72,34 +73,34 @@ public class Sprite {
             newImage("doll_right3", SizeOfTile, SizeOfTile),
     };
     public static final Image[] explosion_horizontal = {
-            newImage("explosion_horizontal", SizeOfTile, SizeOfTile),
-            newImage("explosion_horizontal1", SizeOfTile, SizeOfTile),
-            newImage("explosion_horizontal2", SizeOfTile, SizeOfTile),
+            newImage("explosion_horizontal", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_horizontal1", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_horizontal2", SizeOfFlame, SizeOfFlame),
     };
     public static final Image[] explosion_horizontal_left_last = {
-            newImage("explosion_horizontal_left_last", SizeOfTile, SizeOfTile),
-            newImage("explosion_horizontal_left_last1", SizeOfTile, SizeOfTile),
-            newImage("explosion_horizontal_left_last2", SizeOfTile, SizeOfTile),
+            newImage("explosion_horizontal_left_last", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_horizontal_left_last1", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_horizontal_left_last2", SizeOfFlame, SizeOfFlame),
     };
     public static final Image[] explosion_horizontal_right_last = {
-            newImage("explosion_horizontal_right_last", SizeOfTile, SizeOfTile),
-            newImage("explosion_horizontal_right_last1", SizeOfTile, SizeOfTile),
-            newImage("explosion_horizontal_right_last2", SizeOfTile, SizeOfTile),
+            newImage("explosion_horizontal_right_last", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_horizontal_right_last1", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_horizontal_right_last2", SizeOfFlame, SizeOfFlame),
     };
     public static final Image[] explosion_vertical = {
-            newImage("explosion_vertical", SizeOfTile, SizeOfTile),
-            newImage("explosion_vertical1", SizeOfTile, SizeOfTile),
-            newImage("explosion_vertical2", SizeOfTile, SizeOfTile),
+            newImage("explosion_vertical", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_vertical1", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_vertical2", SizeOfFlame, SizeOfFlame),
     };
     public static final Image[] explosion_vertical_top_last = {
-            newImage("explosion_vertical_top_last", SizeOfTile, SizeOfTile),
-            newImage("explosion_vertical_top_last1", SizeOfTile, SizeOfTile),
-            newImage("explosion_vertical_top_last2", SizeOfTile, SizeOfTile),
+            newImage("explosion_vertical_top_last", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_vertical_top_last1", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_vertical_top_last2", SizeOfFlame, SizeOfFlame),
     };
     public static final Image[] explosion_vertical_down_last = {
-            newImage("explosion_vertical_down_last", SizeOfTile, SizeOfTile),
-            newImage("explosion_vertical_down_last1", SizeOfTile, SizeOfTile),
-            newImage("explosion_vertical_down_last2", SizeOfTile, SizeOfTile),
+            newImage("explosion_vertical_down_last", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_vertical_down_last1", SizeOfFlame, SizeOfFlame),
+            newImage("explosion_vertical_down_last2", SizeOfFlame, SizeOfFlame),
     };
     public static final Image gameOver = newImage("gameOver", CreateMap.WIDTH, CreateMap.HEIGHT);
     public static final Image grass = newImage("grass", SizeOfTile, SizeOfTile);

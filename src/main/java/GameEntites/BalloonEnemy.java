@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Sprite;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
@@ -31,5 +32,11 @@ public class BalloonEnemy extends Enemy {
             }
         }
         imageView.relocate(getX(), getY());
+    }
+
+    @Override
+    public void killed() {
+        setTimeDie(getTimeDie() - 1);
+        setImage(Sprite.balloon_dead);
     }
 }

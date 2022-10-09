@@ -2,11 +2,8 @@ package Graphics;
 
 import GameEntites.*;
 import javafx.scene.Group;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 
-import javax.swing.text.html.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -84,7 +81,7 @@ public class CreateMap {
                 }
             }
         }
-        // add cac enemy vao group.
+        // render enemy list.
         for (Enemy enemy : enemyList) {
             group.getChildren().add(enemy.getImageView());
         }
@@ -95,11 +92,31 @@ public class CreateMap {
     }
 
     /**
-     * cac enemy di chuyen.
+     * update list enemy.
      */
-    public void enemyMove() {
+    public void updateEnemyList(Group group) {
+        List<Flame> flameList = new ArrayList<>();
+        for (Bomber bomber : bomberList) {
+            for (Bomb bomb : bomber.getBombList()) {
+                flameList.addAll(bomb.flameList);
+            }
+        }
+        List<Enemy> temp = new ArrayList<>();
         for (Enemy enemy : enemyList) {
-            enemy.move();
+            enemy.checkcollisonFlame(flameList);
+            if (!enemy.isKilled) {
+                enemy.move();
+            } else {
+                enemy.killed();
+                temp.add(enemy);
+            }
+        }
+        // remove enemy after die 120 milisecond.
+        for (Enemy enemy : temp) {
+            if (enemy.getTimeDie() < 0) {
+                enemyList.removeAll(temp);
+                group.getChildren().remove(enemy.getImageView());
+            }
         }
     }
 
@@ -111,4 +128,5 @@ public class CreateMap {
             bomber.update(scene);
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Sprite;
 import javafx.scene.image.Image;
 
 /**
@@ -14,5 +15,10 @@ public class OnealEnemy extends Enemy {
     @Override
     public void move() {
 
+    }
+
+    @Override
+    public void killed() {
+        setImage(Sprite.balloon_dead);
     }
 }

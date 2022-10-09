@@ -4,6 +4,7 @@ import Graphics.Sprite;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,12 +103,40 @@ public class Bomber extends MoveAnimation {
      */
     public boolean checkCollisonEnemy(List<Enemy> enemyList) {
         for (Enemy enemy : enemyList) {
-            if (imageView.getBoundsInParent().intersects(enemy.getImageView().getBoundsInParent())) {
-                System.out.println("aaa");
+            Rectangle rectangle = new Rectangle(enemy.x + 5, enemy.y - 5, enemy.getImage().getWidth() - 5, enemy.getImage().getHeight() - 5);
+            if (imageView.getBoundsInParent().intersects(rectangle.getBoundsInParent())) {
+                killed();
                 live = false;
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * check flame kill bomber.
+     *
+     * @param flameList list flame.
+     * @return true if killed by flame, false if not.
+     */
+
+    public boolean checkCollisonFlame(List<Flame> flameList) {
+        for (Flame flame : flameList) {
+
+            Rectangle rectangle = new Rectangle(flame.x + 5, flame.y - 5, flame.getImage().getWidth() - 5, flame.getImage().getHeight() - 5);
+            if (imageView.getBoundsInParent().intersects(rectangle.getBoundsInParent())) {
+                killed();
+                live = false;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * describe state be killed of bomber
+     */
+    public void killed() {
+        setImage(Sprite.player_dead[0]);
     }
 }
