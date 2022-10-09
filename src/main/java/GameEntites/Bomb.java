@@ -2,6 +2,7 @@ package GameEntites;
 
 import Graphics.CreateMap;
 import Graphics.Sprite;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -33,13 +34,15 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         explode = false;
     }
 
+    @Override
     public void update() {
         remainingFrame--;
         // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
         if (remainingFrame == 0) {
+            explode = true;
             int r = (y - Sprite.MenuSize) / Sprite.SizeOfTile;
             int c = x / Sprite.SizeOfTile;
-
+            // make flameList when set bomb
             imageView.setImage(Sprite.bomb_exploded[0]);
             if (!(CreateMap.listEntity.get(r).get(c + 1) instanceof Obstacle)) {
                 Flame flame = new Flame(x + Sprite.SizeOfBomb, y, Sprite.explosion_horizontal_right_last[0]);

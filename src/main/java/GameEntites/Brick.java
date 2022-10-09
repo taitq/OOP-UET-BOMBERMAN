@@ -10,4 +10,9 @@ public class Brick extends UnmoveEntity implements Obstacle {
     public Brick(int x, int y, Image image) {
         super(x, y, image);
     }
+
+    @Override
+    public void update() {
+
+    }
 }

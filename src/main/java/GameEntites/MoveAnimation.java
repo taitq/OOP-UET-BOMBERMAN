@@ -3,9 +3,16 @@ package GameEntites;
 import Graphics.Animation;
 import Graphics.Sprite;
 import Graphics.CreateMap;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
+import java.awt.event.KeyListener;
 import java.lang.Math;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Đối tượng có thể di chuyển.
@@ -38,6 +45,7 @@ public abstract class MoveAnimation extends AnimationEntity {
         return false;
     }
 
+    //kiểm tra xem ô(x,y) có bomb ko.
     private Bomb bombInBox(int x, int y) {
         for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
             if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
