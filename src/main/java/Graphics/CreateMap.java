@@ -30,7 +30,7 @@ public class CreateMap {
      *
      * @param level level của map.
      */
-    public void createMap(int level) {
+    public void createMap(int level, Scene scene) {
         try {
             FileInputStream fileInputStream = new FileInputStream("src/main/resources/Level/Level1.txt");
             Scanner scanner = new Scanner(fileInputStream);
@@ -46,14 +46,19 @@ public class CreateMap {
                         case '*' -> temp.add(new Brick(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.brick));
                         case 'x' -> temp.add(new Portal(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.portal));
                         case 'p' -> {
-                            Bomber bomber = new Bomber(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.player_down[0], 10);
+                            Bomber bomber = new Bomber(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.player_down[0], 3, scene);
                             temp.add(bomber);
                             bomberList.add(bomber);
                         }
                         case '1' -> {
-                            BalloonEnemy balloonEnemy = new BalloonEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.balloon_left[0], 5);
+                            BalloonEnemy balloonEnemy = new BalloonEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.balloon_left[0], 2);
                             temp.add(balloonEnemy);
                             enemyList.add(balloonEnemy);
+                        }
+                        case '2' -> {
+                            OnealEnemy onealEnemy = new OnealEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.oneal_left[0], 3);
+                            temp.add(onealEnemy);
+                            enemyList.add(onealEnemy);
                         }
                         default -> temp.add(new Grass(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.grass));
                     }
@@ -99,16 +104,16 @@ public class CreateMap {
      */
     public void enemyMove() {
         for (Enemy enemy : enemyList) {
-            enemy.move();
+            enemy.update();
         }
     }
 
     /**
      * cac bomber xu li su kien.
      */
-    public void bombersHandleInput(Scene scene) {
+    public void bombersHandleInput() {
         for (Bomber bomber : bomberList) {
-            bomber.update(scene);
+            bomber.update();
         }
     }
 }
