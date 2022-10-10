@@ -67,12 +67,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((y - Sprite.MenuSize) % Sprite.SizeOfTile == 0) {
                 if (x % Sprite.SizeOfTile + width > Sprite.SizeOfTile) {
-                    if (x % Sprite.SizeOfTile + (width / 3) * 2 <= Sprite.SizeOfTile) {
+                    if (x % Sprite.SizeOfTile + width / 2 <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên trái.
                         if (!checkBoxIsObstacle(x, y - Sprite.SizeOfTile, null)) {
                             x -= Math.min((x + width) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if(x % Sprite.SizeOfTile + (width / 3) >= Sprite.SizeOfTile) {
+                    } else if(x % Sprite.SizeOfTile + width / 2 >= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên phải.
                         if (!checkBoxIsObstacle(x + width, y - Sprite.SizeOfTile, null)) {
                             x += Math.min(Sprite.SizeOfTile - x % Sprite.SizeOfTile, tmpSpeed);
@@ -94,12 +94,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((y + height - Sprite.MenuSize) % Sprite.SizeOfTile == 0) {
                 if (x % Sprite.SizeOfTile + width > Sprite.SizeOfTile) {
-                    if (x % Sprite.SizeOfTile + (width / 3) * 2 <= Sprite.SizeOfTile) {
+                    if (x % Sprite.SizeOfTile + width / 2 <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên trái.
                         if (!checkBoxIsObstacle(x, y + height, null)) {
                             x -= Math.min((x + width) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if(x % Sprite.SizeOfTile + (width / 3) >= Sprite.SizeOfTile){
+                    } else if(x % Sprite.SizeOfTile + (width / 2) >= Sprite.SizeOfTile){
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên phải.
                         if (!checkBoxIsObstacle(x + width, y + height, null)) {
                             x += Math.min(Sprite.SizeOfTile - x % Sprite.SizeOfTile, tmpSpeed);
@@ -121,12 +121,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if (x % Sprite.SizeOfTile == 0) {
                 if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + height > Sprite.SizeOfTile) {
-                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 3) * 2 <= Sprite.SizeOfTile) {
+                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 2) <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên trên.
                         if (!checkBoxIsObstacle(x - Sprite.SizeOfTile, y, null)) {
                             y -= Math.min((y + height) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height/ 3) >= Sprite.SizeOfTile) {
+                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height/ 2) >= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên dưới.
                         if (!checkBoxIsObstacle(x - Sprite.SizeOfTile, y + Sprite.SizeOfTile, null)) {
                             y += Math.min(Sprite.SizeOfTile - (y - Sprite.MenuSize) % Sprite.SizeOfTile, tmpSpeed);
@@ -148,12 +148,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((x + width) % Sprite.SizeOfTile == 0) {
                 if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + height > Sprite.SizeOfTile) {
-                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 3) * 2 <= Sprite.SizeOfTile) {
+                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 2) <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên trên.
                         if (!checkBoxIsObstacle(x + Sprite.SizeOfTile, y, null)) {
                             y -= Math.min((y + height) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height/ 3) >= Sprite.SizeOfTile) {
+                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 2) >= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên dưới.
                         if (!checkBoxIsObstacle(x + Sprite.SizeOfTile, y + Sprite.SizeOfTile, null)) {
                             y += Math.min(Sprite.SizeOfTile - (y - Sprite.MenuSize) % Sprite.SizeOfTile, tmpSpeed);
