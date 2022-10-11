@@ -37,7 +37,7 @@ public abstract class MoveAnimation extends AnimationEntity {
         for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
             if (!bomb.equals(tmp)) {
                 if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                        && bomb.getY() <= x && y < bomb.getY() + Sprite.SizeOfTile) {
+                        && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
                     return true;
                 }
             }
@@ -49,7 +49,7 @@ public abstract class MoveAnimation extends AnimationEntity {
     private Bomb bombInBox(int x, int y) {
         for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
             if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                    && bomb.getY() <= x && y < bomb.getY() + Sprite.SizeOfTile) {
+                    && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
                 return bomb;
             }
         }
