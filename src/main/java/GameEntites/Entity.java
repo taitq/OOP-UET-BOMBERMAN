@@ -62,7 +62,7 @@ public abstract class Entity {
 
     public void setImage(Image image) {
         this.image = image;
-        imageView.setImage(image);
+        imageView.setImage(this.image);
     }
 
     public Image getImage() {

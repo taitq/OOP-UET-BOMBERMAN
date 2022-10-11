@@ -51,12 +51,12 @@ public class CreateMap {
                             bomberList.add(bomber);
                         }
                         case '1' -> {
-                            BalloonEnemy balloonEnemy = new BalloonEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.balloon_left[0], 2);
+                            BalloonEnemy balloonEnemy = new BalloonEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.balloon_left[0], 1);
                             temp.add(balloonEnemy);
                             enemyList.add(balloonEnemy);
                         }
                         case '2' -> {
-                            OnealEnemy onealEnemy = new OnealEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.oneal_left[0], 3);
+                            OnealEnemy onealEnemy = new OnealEnemy(j * Sprite.SizeOfCharacter, Sprite.MenuSize + i * Sprite.SizeOfCharacter, Sprite.oneal_left[0], 1);
                             temp.add(onealEnemy);
                             enemyList.add(onealEnemy);
                         }
@@ -111,20 +111,17 @@ public class CreateMap {
         }
         List<Enemy> temp = new ArrayList<>();
         for (Enemy enemy : enemyList) {
-            enemy.update();
             enemy.checkcollisonFlame(flameList);
-            if (!enemy.isKilled) {
-                enemy.move();
-            } else {
-                enemy.killed();
+            enemy.update();
+            if (enemy.isKilled) {
                 temp.add(enemy);
             }
         }
-        // remove enemy after die 120 milisecond.
+        // remove enemy after die 60 frames.
         for (Enemy enemy : temp) {
             if (enemy.getTimeDie() < 0) {
-                enemyList.removeAll(temp);
                 group.getChildren().remove(enemy.getImageView());
+                enemyList.remove(enemy);
             }
         }
     }

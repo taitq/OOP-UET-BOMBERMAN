@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class BalloonEnemy extends Enemy {
     private char direction = 'l';
-    private int oldX = x;
-    private int oldY = y;
+    private int oldX;
+    private int oldY;
 
     public BalloonEnemy(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
@@ -35,30 +35,4 @@ public class BalloonEnemy extends Enemy {
         return direction;
     }
 
-    @Override
-    public void killed() {
-        setTimeDie(getTimeDie() - 1);
-        setImage(Sprite.balloon_dead);
-    }
-
-    @Override
-    public void move() {
-        Random random = new Random();
-        int direction = random.nextInt(4);
-        switch (direction) {
-            case 0 -> {
-                moveUp();
-            }
-            case 1 -> {
-                moveDown();
-            }
-            case 2 -> {
-                moveLeft();
-            }
-            case 3 -> {
-                moveRight();
-            }
-        }
-        imageView.relocate(getX(), getY());
-    }
 }
