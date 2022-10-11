@@ -17,8 +17,26 @@ import java.util.List;
  */
 public class Bomb extends UnmoveEntity implements Obstacle {
     private int remainingFrame;
+    private int levelOfFlame;
     private boolean explode;
     public List<Flame> flameList = new ArrayList<>();
+    // danh sach brick bị nổ khi bomb nổ.
+    private List<Brick> brickList = new ArrayList<>();
+    //tren duoi trai phair
+    private int[] row = {0, 0, -1, 1};
+    private int[] col = {-1, 1, 0, 0};
+    private Image[][] explosion = {
+            Sprite.explosion_vertical,
+            Sprite.explosion_vertical,
+            Sprite.explosion_horizontal,
+            Sprite.explosion_horizontal,
+    };
+    private Image[][] explosion_last = {
+            Sprite.explosion_vertical_top_last,
+            Sprite.explosion_vertical_down_last,
+            Sprite.explosion_horizontal_left_last,
+            Sprite.explosion_horizontal_right_last,
+    };
 
     public int getRemainingFrame() {
         return remainingFrame;
@@ -28,62 +46,72 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         this.remainingFrame = remainingFrame;
     }
 
-    public Bomb(int x, int y, Image image) {
-        super(x, y, image);
-        remainingFrame = 120;
+    public Bomb(int x, int y, Image image, int levelOfFlame) {
+        super(x, y, image, Sprite.bomb);
+        remainingFrame = 90;
+        this.levelOfFlame = levelOfFlame;
+        this.levelOfFlame = 4;
         explode = false;
+    }
+
+    private boolean checkObstacle(int r, int c) {
+        return (CreateMap.listEntity.get(r).get(c) instanceof Obstacle);
     }
 
     @Override
     public void update() {
         remainingFrame--;
-        // update image nữa và remainingFrame = 0 thì chuyển sang trạng thái nố;
-        if (remainingFrame == 0) {
+        int tmp = (remainingFrame % 30) / 10;
+        // update animation của bomb như bthg.
+        if(remainingFrame >= 0) {
+            super.update();
+        }
+        //bomb bắt đầu nổ.
+        if(remainingFrame == -1) {
             explode = true;
+            flameList.add(new Flame(x, y, null, Sprite.bomb_exploded));
+            // lấy tọa độ r,c của bomb trên map.
             int r = (y - Sprite.MenuSize) / Sprite.SizeOfTile;
             int c = x / Sprite.SizeOfTile;
-            // make flameList when set bomb
-            imageView.setImage(Sprite.bomb_exploded[0]);
-            if (!(CreateMap.listEntity.get(r).get(c + 1) instanceof Obstacle)) {
-                Flame flame = new Flame(x + Sprite.SizeOfBomb, y, Sprite.explosion_horizontal_right_last[0]);
-                flameList.add(flame);
+            for(int i = 0; i < 4; i++) {
+                for(int k = 1; k <= levelOfFlame; k++) {
+                    int tmpR = r + col[i] * k;
+                    int tmpC = c + row[i] * k;
+                    if(checkObstacle(tmpR, tmpC) == false) {
+                        int tmpX = x + row[i] * k * Sprite.SizeOfTile;
+                        int tmpY = y + col[i] * k * Sprite.SizeOfTile;
+                        if(k == levelOfFlame) {
+                            flameList.add(new Flame(tmpX, tmpY, null, explosion_last[i]));
+                        } else {
+                            flameList.add(new Flame(tmpX, tmpY, null, explosion[i]));
+                        }
+                    } else {
+                        if(CreateMap.listEntity.get(tmpR).get(tmpC) instanceof Brick) {
+                            brickList.add((Brick) CreateMap.listEntity.get(tmpR).get(tmpC));
+                        }
+                        break;
+                    }
+                }
             }
-            if (!(CreateMap.listEntity.get(r).get(c - 1) instanceof Obstacle)) {
-                Flame flame = new Flame(x - Sprite.SizeOfBomb, y, Sprite.explosion_horizontal_left_last[0]);
-                flameList.add(flame);
+        }
+        if(explode == true) {
+            for (Flame flame : flameList) {
+                flame.update();
             }
-            if (!(CreateMap.listEntity.get(r - 1).get(c) instanceof Obstacle)) {
-                Flame flame = new Flame(x, y - Sprite.SizeOfBomb, Sprite.explosion_vertical_top_last[0]);
-                flameList.add(flame);
+            for (Brick brick : brickList) {
+                brick.update();
             }
-            if (!(CreateMap.listEntity.get(r + 1).get(c) instanceof Obstacle)) {
-                Flame flame = new Flame(x, y + Sprite.SizeOfBomb, Sprite.explosion_vertical_down_last[0]);
-                flameList.add(flame);
-            }
+        }
+    }
 
-            if (CreateMap.listEntity.get(r).get(c + 1) instanceof Brick) {
-                CreateMap.listEntity.get(r).get(c + 1).getImageView().setImage(Sprite.grass);
-                Grass grass = new Grass(x + Sprite.SizeOfBomb, y, Sprite.grass);
-                CreateMap.listEntity.get(r).set(c + 1, grass);
-            }
-            if (CreateMap.listEntity.get(r).get(c - 1) instanceof Brick) {
-                CreateMap.listEntity.get(r).get(c - 1).getImageView().setImage(Sprite.grass);
-                Grass grass = new Grass(x - Sprite.SizeOfBomb, y, Sprite.grass);
-                CreateMap.listEntity.get(r).set(c - 1, grass);
-            }
-            if (CreateMap.listEntity.get(r - 1).get(c) instanceof Brick) {
-                CreateMap.listEntity.get(r - 1).get(c).getImageView().setImage(Sprite.grass);
-                Grass grass = new Grass(x, y - Sprite.SizeOfBomb, Sprite.grass);
-                CreateMap.listEntity.get(r - 1).set(c, grass);
-            }
-            if (CreateMap.listEntity.get(r + 1).get(c) instanceof Brick) {
-                CreateMap.listEntity.get(r + 1).get(c).getImageView().setImage(Sprite.grass);
-                Grass grass = new Grass(x, y + Sprite.SizeOfBomb, Sprite.grass);
-                CreateMap.listEntity.get(r + 1).set(c, grass);
-            }
-            if (remainingFrame == 0) {
-                setImage(Sprite.bomb_exploded[0]);
-            }
+    //chuyển brick thành grass sau khi bomb nổ xong.
+    public void updateBrick() {
+        for (Brick brick : brickList) {
+            Grass grass = new Grass(brick.getX(), brick.getY(), Sprite.grass);
+            int r = (brick.getY() - Sprite.MenuSize) / Sprite.SizeOfTile;
+            int c = brick.getX() / Sprite.SizeOfTile;
+            CreateMap.listEntity.get(r).get(c).getImageView().setImage(Sprite.grass);
+            CreateMap.listEntity.get(r).set(c, grass);
         }
     }
 }

@@ -19,6 +19,7 @@ import java.util.Set;
 public class Bomber extends MoveAnimation {
     private List<Bomb> bombList = new ArrayList<>();
     private int numberOfBomb;
+    private int levelOfFlame;
     // biến đếm ngược frame để thay đổi image.
     private int time;
     // biến kiểm tra xem bomber có di chuyển không.
@@ -33,6 +34,7 @@ public class Bomber extends MoveAnimation {
         super(x, y, image, speed);
         //this.numberOfBomb = Math.max(1, numberOfBomb);
         numberOfBomb = 3;
+        levelOfFlame = 1;
         width = 22;
         height = 30;
         keyListener = new KeyListener(scene);
@@ -136,7 +138,7 @@ public class Bomber extends MoveAnimation {
             direction = 'r';
         }
         if(keyListener.isPressed(KeyCode.SPACE)) {
-            setBomb(x, y);
+            setBomb(x + width / 2, y + height / 2);
         }
         isRunning = isPressed;
         if(isRunning == false) {
@@ -160,7 +162,16 @@ public class Bomber extends MoveAnimation {
      * xóa những bomb đã nổ.
      */
     private void removeBomb() {
-        bombList.removeIf(bomb -> bomb.getRemainingFrame() < -40);
+        List<Bomb> tmp = new ArrayList<>();
+        for(Bomb bomb : bombList) {
+            if(bomb.getRemainingFrame() < -60) {
+                bomb.updateBrick();
+                tmp.add(bomb);
+            }
+        }
+        for(Bomb bomb : tmp) {
+            bombList.remove(bomb);
+        }
     }
 
     /**
@@ -181,7 +192,7 @@ public class Bomber extends MoveAnimation {
                 }
             }
             if (!status) {
-                bombList.add(new Bomb(x, y, Sprite.bomb[0]));
+                bombList.add(new Bomb(x, y, Sprite.bomb[0], levelOfFlame));
             }
         }
     }
