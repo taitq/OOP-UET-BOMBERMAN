@@ -9,5 +9,6 @@ public class Flame extends UnmoveEntity {
 
     public Flame(int x, int y, Image image, Image[] images) {
         super(x, y, image, images);
+        MAX_TIME = 30;
     }
 }

@@ -50,8 +50,8 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         super(x, y, image, Sprite.bomb);
         remainingFrame = 90;
         this.levelOfFlame = levelOfFlame;
-        this.levelOfFlame = 4;
         explode = false;
+        MAX_TIME = 60;
     }
 
     private boolean checkObstacle(int r, int c) {
@@ -66,7 +66,7 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         if(remainingFrame >= 0) {
             super.update();
         }
-        //bomb bắt đầu nổ.
+        //bomb bắt đầu nổ.s
         if(remainingFrame == -1) {
             explode = true;
             flameList.add(new Flame(x, y, null, Sprite.bomb_exploded));
@@ -107,11 +107,7 @@ public class Bomb extends UnmoveEntity implements Obstacle {
     //chuyển brick thành grass sau khi bomb nổ xong.
     public void updateBrick() {
         for (Brick brick : brickList) {
-            Grass grass = new Grass(brick.getX(), brick.getY(), Sprite.grass);
-            int r = (brick.getY() - Sprite.MenuSize) / Sprite.SizeOfTile;
-            int c = brick.getX() / Sprite.SizeOfTile;
-            CreateMap.listEntity.get(r).get(c).getImageView().setImage(Sprite.grass);
-            CreateMap.listEntity.get(r).set(c, grass);
+            brick.convertBrickToGeass();
         }
     }
 }

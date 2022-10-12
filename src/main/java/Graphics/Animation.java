@@ -40,11 +40,12 @@ public class Animation {
                         bomb.update();
                     }
 
-                    map.bombersHandleInput();
+                    map.bombersHandleInput(group);
                     // update Enemy list
                     map.updateEnemyList(group);
                     // update flame list to group.
                     for (Bomb bomb : bombList) {
+                        //bomb.update();
                         group.getChildren().add(bomb.getImageView());
                         for (Flame flame : bomb.flameList) {
                             group.getChildren().add(flame.getImageView());

@@ -9,21 +9,21 @@ import java.util.List;
  */
 public abstract class UnmoveEntity extends AnimationEntity {
     protected Image[] images;
-    private int countDown;
+    protected int countFrame = 0;
+    protected int MAX_TIME;
 
     public UnmoveEntity(int x, int y, Image image, Image[] images) {
         super(x, y, image);
         this.images = images;
-        countDown = 60;
     }
 
     @Override
     public void update() {
-        countDown--;
-        int tmp = countDown / 20;
+        int tmp = countFrame / (MAX_TIME / 3);
         setImage(images[tmp]);
-        if(countDown == 0) {
-            countDown = 60;
+        countFrame++;
+        if(countFrame == MAX_TIME) {
+            countFrame = 0;
         }
     }
 }

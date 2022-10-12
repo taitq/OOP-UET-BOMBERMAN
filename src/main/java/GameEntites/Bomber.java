@@ -1,11 +1,13 @@
 package GameEntites;
 
 import Graphics.Animation;
+import Graphics.CreateMap;
 import Graphics.Sprite;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
@@ -28,12 +30,14 @@ public class Bomber extends MoveAnimation {
     private char direction = 'd';
     // bien kiem tra xem bomber live or die.
     private static boolean live = true;
+    // bien kiem tra xem bomber di vao portal chua.
+    private boolean isGoToPortal = false;
     private KeyListener keyListener;
     private final int MAX_TIME = 15;
     public Bomber(int x, int y, Image image, int speed, Scene scene) {
         super(x, y, image, speed);
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 3;
+        numberOfBomb = 1;
         levelOfFlame = 1;
         width = 22;
         height = 30;
@@ -96,6 +100,47 @@ public class Bomber extends MoveAnimation {
         if(live == false) {
             Animation.gameOver = true;
         }
+        move();
+        changeImage();
+    }
+
+    //hàm thay đổi ảnh của bomber khi di chuyển.
+    private void changeImage() {
+        if(isRunning == false) {
+            switch (direction) {
+                case 'd' -> setImage(Sprite.player_down[0]);
+                case 'u' -> setImage(Sprite.player_up[0]);
+                case 'l' -> setImage(Sprite.player_left[0]);
+                case 'r' -> setImage(Sprite.player_right[0]);
+                default -> setImage(Sprite.player_down[0]);
+            }
+        } else {
+            time++;
+            if(time == MAX_TIME) {
+                resetTime();
+            }
+        }
+        imageView.relocate(x, y);
+    }
+
+    /**
+     * xóa những bomb đã nổ.
+     */
+    private void removeBomb() {
+        List<Bomb> tmp = new ArrayList<>();
+        for(Bomb bomb : bombList) {
+            if(bomb.getRemainingFrame() <= -45) {
+                bomb.updateBrick();
+                tmp.add(bomb);
+            }
+        }
+        for(Bomb bomb : tmp) {
+            bombList.remove(bomb);
+        }
+    }
+
+    // hàm di chuyển của bomber khi nhận sự kiện bàn phím.
+    private void move() {
         boolean isPressed = false;
         if(keyListener.isPressed(KeyCode.UP)) {
             moveUp();
@@ -141,37 +186,6 @@ public class Bomber extends MoveAnimation {
             setBomb(x + width / 2, y + height / 2);
         }
         isRunning = isPressed;
-        if(isRunning == false) {
-            switch (direction) {
-                case 'd' -> setImage(Sprite.player_down[0]);
-                case 'u' -> setImage(Sprite.player_up[0]);
-                case 'l' -> setImage(Sprite.player_left[0]);
-                case 'r' -> setImage(Sprite.player_right[0]);
-                default -> setImage(Sprite.player_down[0]);
-            }
-        } else {
-            time++;
-            if(time == MAX_TIME) {
-                resetTime();
-            }
-        }
-        imageView.relocate(x, y);
-    }
-
-    /**
-     * xóa những bomb đã nổ.
-     */
-    private void removeBomb() {
-        List<Bomb> tmp = new ArrayList<>();
-        for(Bomb bomb : bombList) {
-            if(bomb.getRemainingFrame() < -60) {
-                bomb.updateBrick();
-                tmp.add(bomb);
-            }
-        }
-        for(Bomb bomb : tmp) {
-            bombList.remove(bomb);
-        }
     }
 
     /**
@@ -241,4 +255,42 @@ public class Bomber extends MoveAnimation {
     public void killed() {
         setImage(Sprite.player_dead[0]);
     }
+
+    //hàm kiểm tra bomber đi vào portal khi hết enemy chưa.
+    public void checkIsGoToPortal(Portal portal) {
+        int tmpX = x + width / 2;
+        int tmpY = y + height / 2;
+        if(tmpX >= portal.getX() && tmpX < portal.getX() + Sprite.SizeOfTile
+            && tmpY >= portal.getY() && tmpY < portal.getY() + Sprite.SizeOfTile) {
+            isGoToPortal = true;
+        }
+    }
+
+    public Item getItem(List<Item> itemList) {
+        Item usedItem = null;
+        for(Item item : itemList) {
+            int tmpX = x + width / 2;
+            int tmpY = y + height / 2;
+            if(tmpX >= item.getX() && tmpX < item.getX() + Sprite.SizeOfTile
+                    && tmpY >= item.getY() && tmpY < item.getY() + Sprite.SizeOfTile) {
+                usedItem = item;
+            }
+        }
+        if(usedItem instanceof FlameItem) {
+            levelOfFlame++;
+        } else if(usedItem instanceof BombItem) {
+            numberOfBomb++;
+        } else if(usedItem instanceof SpeedItem) {
+            speed++;
+        } else {
+
+        }
+        itemList.remove(usedItem);
+        return usedItem;
+    }
+
+    public boolean isGoToPortal() {
+        return isGoToPortal;
+    }
+
 }
