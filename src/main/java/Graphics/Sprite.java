@@ -1,9 +1,9 @@
 package Graphics;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import com.sun.glass.ui.Pixels;
+import javafx.scene.image.*;
+import javafx.scene.paint.Color;
+import org.w3c.dom.css.RGBColor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -203,12 +203,9 @@ public class Sprite {
                 int g = (argb >> 8) & 0xFF;
                 int b = argb & 0xFF;
 
-                if (r == 0xFF
-                        && g == 0
-                        && b == 0xFF) {
+                if (r == 0xFF && g == 0 && b == 0xFF) {
                     argb &= 0x00FFFFFF;
                 }
-
                 writer.setArgb(x, y, argb);
             }
         }

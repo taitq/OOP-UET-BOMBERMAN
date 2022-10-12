@@ -1,38 +1,32 @@
-import GameEntites.Bomber;
-import javafx.animation.AnimationTimer;
+import Graphics.Animation;
+import Graphics.CreateMap;
 import javafx.application.Application;
-import javafx.event.EventHandler;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Slider;
 import javafx.stage.Stage;
-import Graphics.*;
+import javafx.stage.StageStyle;
 
-import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 public class Main extends Application {
+
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
     public void start(Stage primaryStage) throws IOException {
 
         Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
         Group group = new Group();
         group.getChildren().add(canvas);
-
         Scene scene = new Scene(group);
         Animation.animation(scene, group);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 }

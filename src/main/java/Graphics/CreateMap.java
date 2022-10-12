@@ -2,11 +2,8 @@ package Graphics;
 
 import GameEntites.*;
 import javafx.scene.Group;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 
-import javax.swing.text.html.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -78,14 +75,18 @@ public class CreateMap {
      * @param group group.
      */
     public void renderMap(Group group) {
-        // add nhung thuc the khong phai enemy va bomber vao group truoc.
+        // add grass vao truoc
+        for (int i = 0; i < CreateMap.COLUMN; i++) {
+            for (int j = 0; j < CreateMap.ROW; j++) {
+                Grass grass = new Grass(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.grass);
+                group.getChildren().add(grass.getImageView());
+            }
+        }
+        // add nhung thuc the khong phai bomber va enemy
         for (int i = 0; i < CreateMap.COLUMN; i++) {
             for (int j = 0; j < CreateMap.ROW; j++) {
                 if (!(listEntity.get(i).get(j) instanceof Enemy || listEntity.get(i).get(j) instanceof Bomber)) {
                     group.getChildren().add(listEntity.get(i).get(j).getImageView());
-                } else {
-                    Grass grass = new Grass(j * Sprite.SizeOfTile, Sprite.MenuSize + i * Sprite.SizeOfTile, Sprite.grass);
-                    group.getChildren().add(grass.getImageView());
                 }
             }
         }
