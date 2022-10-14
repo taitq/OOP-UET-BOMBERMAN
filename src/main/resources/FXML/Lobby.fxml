@@ -8,10 +8,10 @@
 <AnchorPane prefHeight="420.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Controller.Lobby">
    <children>
-      <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.39999999999997726"
-                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../Picture/d2a719f2d96c581d44294d01c27863cd.jpg"/>
+            <Image url="/Picture/Lobby.jpg"/>
          </image>
       </ImageView>
       <Button layoutX="399.0" layoutY="146.0" mnemonicParsing="false" onAction="#onePlayer" prefHeight="26.0"

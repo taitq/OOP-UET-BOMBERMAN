@@ -1,17 +1,23 @@
 package Graphics;
 
 import GameEntites.Bomb;
-import GameEntites.Enemy;
 import GameEntites.Bomber;
 import GameEntites.Flame;
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 
 public class Animation {
 
@@ -20,46 +26,28 @@ public class Animation {
     private static long lastTime;
     public static boolean gameOver = false;
     public static CreateMap map = new CreateMap();
+    public static Stage thisStage;
+    public static AnimationTimer animationTimer;
 
-    public static void animation(Scene scene, Group group) {
+    public void animation(Scene scene, Group group, ActionEvent event) {
+        thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         map.createMap(1, scene);
         map.renderMap(group);
         lastTime = System.nanoTime();
-        AnimationTimer animationTimer = new AnimationTimer() {
+
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (!gameOver) {
-                    List<Bomb> bombList = map.bomberList.get(0).getBombList();
-                    for (Bomb bomb : bombList) {
-                        //remove bomb which are explosive.
-                        group.getChildren().remove(bomb.getImageView());
-                        // remove flame which are explosive.
-                        for (Flame flame : bomb.flameList) {
-                            group.getChildren().remove(flame.getImageView());
-                        }
-                        bomb.update();
-                    }
-
-                    map.bombersHandleInput(group);
-                    // update Enemy list
-                    map.updateEnemyList(group);
-                    // update flame list to group.
-                    for (Bomb bomb : bombList) {
-                        //bomb.update();
-                        group.getChildren().add(bomb.getImageView());
-                        for (Flame flame : bomb.flameList) {
-                            group.getChildren().add(flame.getImageView());
-                        }
-                    }
-                    checkGameOver();
+                    playGame(1, scene, group);
                     try {
                         TimeUnit.NANOSECONDS.sleep(delay());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    // TO DO FOR GAME OVER
-
+                    animationTimer.stop();
+                    choice();
                 }
             }
         };
@@ -94,4 +82,45 @@ public class Animation {
         }
     }
 
+    public static void playGame(int level, Scene scene, Group group) {
+        List<Bomb> bombList = map.bomberList.get(0).getBombList();
+        for (Bomb bomb : bombList) {
+            //remove bomb which are explosive.
+            group.getChildren().remove(bomb.getImageView());
+            // remove flame which are explosive.
+            for (Flame flame : bomb.flameList) {
+                group.getChildren().remove(flame.getImageView());
+            }
+            bomb.update();
+        }
+
+        map.bombersHandleInput(group);
+        // update Enemy list
+        map.updateEnemyList(group);
+        // update flame list to group.
+        for (Bomb bomb : bombList) {
+            //bomb.update();
+            group.getChildren().add(bomb.getImageView());
+            for (Flame flame : bomb.flameList) {
+                group.getChildren().add(flame.getImageView());
+            }
+        }
+        checkGameOver();
+    }
+
+    public void choice() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(new File("src/main/resources/FXML/PlayAgainOrExit.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            Parent choiceRoot = loader.load(fileInputStream);
+            Scene choiceScene = new Scene(choiceRoot);
+            thisStage.setScene(choiceScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void resetGame() {
+        gameOver = false;
+    }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0"
+            prefWidth="930.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.PlayAgainOrExit">
+   <children>
+      <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="/Picture/gameOver.jpg"/>
+         </image>
+      </ImageView>
+      <Button layoutX="42.0" layoutY="227.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="43.0"
+              prefWidth="125.0" text="PLAY AGAIN" textFill="#190748">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="/Picture/playAgain.jpg"/>
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="41.0" layoutY="299.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="32.0"
+              prefWidth="126.0" text="EXIT">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="68.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="/Picture/exit.jpg"/>
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
