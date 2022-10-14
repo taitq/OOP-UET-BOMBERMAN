@@ -38,6 +38,10 @@ public class Bomb extends UnmoveEntity implements Obstacle {
             Sprite.explosion_horizontal_right_last,
     };
 
+    public int getLevelOfFlame() {
+        return levelOfFlame;
+    }
+
     public int getRemainingFrame() {
         return remainingFrame;
     }

@@ -62,19 +62,33 @@ public class CreateMap {
                             itemList.add(new SpeedItem(x, y, Sprite.powerup_speed));
                         }
                         case 'p' -> {
-                            Bomber bomber = new Bomber(x, y, Sprite.player_down[0], 3, scene);
-                            temp.add(bomber);
-                            bomberList.add(bomber);
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            bomberList.add(new Bomber(x, y, Sprite.player_down[0], 3, scene));
                         }
                         case '1' -> {
-                            BalloonEnemy balloonEnemy = new BalloonEnemy(x, y, Sprite.balloon_left[0], 1);
-                            temp.add(balloonEnemy);
-                            enemyList.add(balloonEnemy);
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new BalloonEnemy(x, y, Sprite.balloon_left[0], 1));
                         }
                         case '2' -> {
-                            OnealEnemy onealEnemy = new OnealEnemy(x, y, Sprite.oneal_left[0], 1);
-                            temp.add(onealEnemy);
-                            enemyList.add(onealEnemy);
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new OnealEnemy(x, y, Sprite.oneal_left[0], 1));
+                        }
+                        case '3' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new DollEnemy(x, y, Sprite.doll_left[0], 1));
+                        }
+                        case '4' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new KondoriaEnemy(x, y, Sprite.kondoria_left[0], 1));
+                        }
+                        case '5' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new MinvoEnemy(x, y, Sprite.minvo_left[0], 1));
+                        }
+                        case '6' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            //chua biet lam gi.
+                            //enemyList.add(new MobEnemy(x, y, Sprite.oneal_left[0], 1));
                         }
                         default -> temp.add(new Grass(x, y, Sprite.grass));
                     }
@@ -108,7 +122,8 @@ public class CreateMap {
         // add nhung thuc the khong phai bomber va enemy
         for (int i = 0; i < CreateMap.COLUMN; i++) {
             for (int j = 0; j < CreateMap.ROW; j++) {
-                if (!(listEntity.get(i).get(j) instanceof Enemy || listEntity.get(i).get(j) instanceof Bomber)) {
+                //if (!(listEntity.get(i).get(j) instanceof Enemy || listEntity.get(i).get(j) instanceof Bomber))
+                {
                     group.getChildren().add(listEntity.get(i).get(j).getImageView());
                 }
             }
