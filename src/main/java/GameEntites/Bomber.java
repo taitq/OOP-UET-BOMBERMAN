@@ -29,7 +29,7 @@ public class Bomber extends MoveAnimation {
     // hướng di chuyển hiện tại của bomber.
     private char direction = 'd';
     // bien kiem tra xem bomber live or die.
-    private static boolean live = true;
+    private boolean live = true;
     // bien kiem tra xem bomber di vao portal chua.
     private boolean isGoToPortal = false;
     private KeyListener keyListener;
@@ -71,7 +71,7 @@ public class Bomber extends MoveAnimation {
     }
 
     public void setLive(boolean live) {
-        Bomber.live = live;
+        this.live = live;
     }
 
     public int getNumberOfBomb() {
@@ -293,4 +293,7 @@ public class Bomber extends MoveAnimation {
         return isGoToPortal;
     }
 
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
 }

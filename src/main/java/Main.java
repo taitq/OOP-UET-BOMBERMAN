@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    public Scene choiceScene;
     public static void main(String[] args) {
         launch(args);
     }
@@ -31,6 +32,7 @@ public class Main extends Application {
         try {
             FXMLLoader lobby = new FXMLLoader(getClass().getResource("FXML/Lobby.fxml"));
             Scene lobbyScene = new Scene(lobby.load(), CreateMap.WIDTH, CreateMap.HEIGHT);
+
             primaryStage.setScene(lobbyScene);
             primaryStage.show();
         } catch (Exception e) {
