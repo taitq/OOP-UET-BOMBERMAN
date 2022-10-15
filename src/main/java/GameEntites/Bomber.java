@@ -1,25 +1,21 @@
 package GameEntites;
 
 import Graphics.Animation;
-import Graphics.CreateMap;
 import Graphics.Sprite;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class Bomber extends MoveAnimation {
-    private List<Bomb> bombList = new ArrayList<>();
+    private List<Bomb> bombList;
     private int numberOfBomb;
     private int levelOfFlame;
     // biến đếm ngược frame để thay đổi image.
@@ -29,19 +25,24 @@ public class Bomber extends MoveAnimation {
     // hướng di chuyển hiện tại của bomber.
     private char direction = 'd';
     // bien kiem tra xem bomber live or die.
-    private boolean live = true;
+    private boolean live;
     // bien kiem tra xem bomber di vao portal chua.
-    private boolean isGoToPortal = false;
+    private boolean isGoToPortal;
     private KeyListener keyListener;
     private final int MAX_TIME = 15;
+
     public Bomber(int x, int y, Image image, int speed, Scene scene) {
         super(x, y, image, speed);
+        live = true;
         //this.numberOfBomb = Math.max(1, numberOfBomb);
         numberOfBomb = 1;
         levelOfFlame = 1;
         width = 22;
         height = 30;
+        bombList = new ArrayList<>();
         keyListener = new KeyListener(scene);
+        isRunning = false;
+        isGoToPortal = false;
     }
 
     private class KeyListener implements EventHandler<KeyEvent> {
@@ -97,7 +98,7 @@ public class Bomber extends MoveAnimation {
     @Override
     public void update() {
         removeBomb();
-        if(live == false) {
+        if (live == false) {
             Animation.gameOver = true;
         }
         move();
@@ -106,7 +107,7 @@ public class Bomber extends MoveAnimation {
 
     //hàm thay đổi ảnh của bomber khi di chuyển.
     private void changeImage() {
-        if(isRunning == false) {
+        if (isRunning == false) {
             switch (direction) {
                 case 'd' -> setImage(Sprite.player_down[0]);
                 case 'u' -> setImage(Sprite.player_up[0]);
@@ -116,7 +117,7 @@ public class Bomber extends MoveAnimation {
             }
         } else {
             time++;
-            if(time == MAX_TIME) {
+            if (time == MAX_TIME) {
                 resetTime();
             }
         }
@@ -128,13 +129,13 @@ public class Bomber extends MoveAnimation {
      */
     private void removeBomb() {
         List<Bomb> tmp = new ArrayList<>();
-        for(Bomb bomb : bombList) {
-            if(bomb.getRemainingFrame() <= -45) {
+        for (Bomb bomb : bombList) {
+            if (bomb.getRemainingFrame() <= -45) {
                 bomb.updateBrick();
                 tmp.add(bomb);
             }
         }
-        for(Bomb bomb : tmp) {
+        for (Bomb bomb : tmp) {
             bombList.remove(bomb);
         }
     }
@@ -142,9 +143,9 @@ public class Bomber extends MoveAnimation {
     // hàm di chuyển của bomber khi nhận sự kiện bàn phím.
     private void move() {
         boolean isPressed = false;
-        if(keyListener.isPressed(KeyCode.UP)) {
+        if (keyListener.isPressed(KeyCode.UP)) {
             moveUp();
-            if(direction != 'u' || !isRunning) {
+            if (direction != 'u' || !isRunning) {
                 resetTime();
             }
             isPressed = true;
@@ -152,9 +153,9 @@ public class Bomber extends MoveAnimation {
             setImage(Sprite.player_up[(time / 5 + 1) % 3]);
             direction = 'u';
         }
-        if(keyListener.isPressed(KeyCode.DOWN)) {
+        if (keyListener.isPressed(KeyCode.DOWN)) {
             moveDown();
-            if(direction != 'd' || !isRunning) {
+            if (direction != 'd' || !isRunning) {
                 resetTime();
             }
             isPressed = true;
@@ -162,9 +163,9 @@ public class Bomber extends MoveAnimation {
             setImage(Sprite.player_down[(time / 5 + 1) % 3]);
             direction = 'd';
         }
-        if(keyListener.isPressed(KeyCode.LEFT)) {
+        if (keyListener.isPressed(KeyCode.LEFT)) {
             moveLeft();
-            if(direction != 'l' || !isRunning) {
+            if (direction != 'l' || !isRunning) {
                 resetTime();
             }
             isPressed = true;
@@ -172,9 +173,9 @@ public class Bomber extends MoveAnimation {
             setImage(Sprite.player_left[(time / 5 + 1) % 3]);
             direction = 'l';
         }
-        if(keyListener.isPressed(KeyCode.RIGHT)) {
+        if (keyListener.isPressed(KeyCode.RIGHT)) {
             moveRight();
-            if(direction != 'r' || !isRunning) {
+            if (direction != 'r' || !isRunning) {
                 resetTime();
             }
             isPressed = true;
@@ -182,7 +183,7 @@ public class Bomber extends MoveAnimation {
             setImage(Sprite.player_right[(time / 5 + 1) % 3]);
             direction = 'r';
         }
-        if(keyListener.isPressed(KeyCode.SPACE)) {
+        if (keyListener.isPressed(KeyCode.SPACE)) {
             setBomb(x + width / 2, y + height / 2);
         }
         isRunning = isPressed;
@@ -260,27 +261,27 @@ public class Bomber extends MoveAnimation {
     public void checkIsGoToPortal(Portal portal) {
         int tmpX = x + width / 2;
         int tmpY = y + height / 2;
-        if(tmpX >= portal.getX() && tmpX < portal.getX() + Sprite.SizeOfTile
-            && tmpY >= portal.getY() && tmpY < portal.getY() + Sprite.SizeOfTile) {
+        if (tmpX >= portal.getX() && tmpX < portal.getX() + Sprite.SizeOfTile
+                && tmpY >= portal.getY() && tmpY < portal.getY() + Sprite.SizeOfTile) {
             isGoToPortal = true;
         }
     }
 
     public Item getItem(List<Item> itemList) {
         Item usedItem = null;
-        for(Item item : itemList) {
+        for (Item item : itemList) {
             int tmpX = x + width / 2;
             int tmpY = y + height / 2;
-            if(tmpX >= item.getX() && tmpX < item.getX() + Sprite.SizeOfTile
+            if (tmpX >= item.getX() && tmpX < item.getX() + Sprite.SizeOfTile
                     && tmpY >= item.getY() && tmpY < item.getY() + Sprite.SizeOfTile) {
                 usedItem = item;
             }
         }
-        if(usedItem instanceof FlameItem) {
+        if (usedItem instanceof FlameItem) {
             levelOfFlame++;
-        } else if(usedItem instanceof BombItem) {
+        } else if (usedItem instanceof BombItem) {
             numberOfBomb++;
-        } else if(usedItem instanceof SpeedItem) {
+        } else if (usedItem instanceof SpeedItem) {
             speed++;
         } else {
 

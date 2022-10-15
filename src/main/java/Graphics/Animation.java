@@ -24,10 +24,14 @@ public class Animation {
     private static final int FPS = 30;
     private static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static long lastTime;
-    public static boolean gameOver = false;
-    public static CreateMap map = new CreateMap();
+    public static boolean gameOver;
+    public static CreateMap map;
     public static Stage thisStage;
-    public static AnimationTimer animationTimer;
+
+    public Animation() {
+        gameOver = false;
+        map = new CreateMap();
+    }
 
     public void animation(Scene scene, Group group, ActionEvent event) {
         thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -35,19 +39,21 @@ public class Animation {
         map.renderMap(group);
         lastTime = System.nanoTime();
 
-        animationTimer = new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (!gameOver) {
                     playGame(1, scene, group);
-                    try {
-                        TimeUnit.NANOSECONDS.sleep(delay());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                 } else {
-                    animationTimer.stop();
+                    gameOver = false;
+                    this.stop();
                     choice();
+                }
+                try {
+                    TimeUnit.NANOSECONDS.sleep(delay());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         };
@@ -67,8 +73,6 @@ public class Animation {
 
     /**
      * kiem tra xem game over.
-     *
-     * @return true if end game.
      */
     public static void checkGameOver() {
         Bomber bomber = map.bomberList.get(0);
@@ -83,6 +87,7 @@ public class Animation {
     }
 
     public static void playGame(int level, Scene scene, Group group) {
+
         List<Bomb> bombList = map.bomberList.get(0).getBombList();
         for (Bomb bomb : bombList) {
             //remove bomb which are explosive.
@@ -106,6 +111,13 @@ public class Animation {
             }
         }
         checkGameOver();
+        if (map.bomberList.get(0).isGoToPortal()) {
+            level++;
+            map = new CreateMap();
+            map.createMap(level, scene);
+            map.renderMap(group);
+            playGame(level, scene, group);
+        }
     }
 
     public void choice() {

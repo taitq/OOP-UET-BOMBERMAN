@@ -18,11 +18,18 @@ public class CreateMap {
     public static int COLUMN;
     public static int WIDTH = 930;
     public static int HEIGHT = 420;
-    public static List<List<Entity>> listEntity = new ArrayList<>();
-    public List<Enemy> enemyList = new ArrayList<>();
-    public List<Bomber> bomberList = new ArrayList<>();
-    public List<Item> itemList = new ArrayList<>();
+    public static List<List<Entity>> listEntity;
+    public List<Enemy> enemyList;
+    public List<Bomber> bomberList;
+    public List<Item> itemList;
     public Portal portal;
+
+    public CreateMap() {
+        listEntity = new ArrayList<>();
+        enemyList = new ArrayList<>();
+        bomberList = new ArrayList<>();
+        itemList = new ArrayList<>();
+    }
 
     /**
      * tạo map.
@@ -115,7 +122,7 @@ public class CreateMap {
             }
         }
         //add item and portal
-        for(Item item : itemList) {
+        for (Item item : itemList) {
             group.getChildren().add(item.getImageView());
         }
         group.getChildren().add(portal.getImageView());
@@ -171,15 +178,15 @@ public class CreateMap {
     public void bombersHandleInput(Group group) {
         for (Bomber bomber : bomberList) {
             bomber.update();
-            if(enemyList.isEmpty()) {
+            if (enemyList.isEmpty()) {
                 bomber.checkIsGoToPortal(portal);
             }
-            if(bomber.isGoToPortal()) {
+            if (bomber.isGoToPortal()) {
                 System.out.println("qua man");
                 // qua màn.
             }
             Item usedItem = bomber.getItem(itemList);
-            if(usedItem != null) {
+            if (usedItem != null) {
                 group.getChildren().remove(usedItem.getImageView());
             }
         }

@@ -6,6 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -30,6 +34,13 @@ public class Main extends Application {
         primaryStage.show();
 */
         try {
+            // play audio background
+            File file = new File("src/main/resources/Music/test.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+
             FXMLLoader lobby = new FXMLLoader(getClass().getResource("FXML/Lobby.fxml"));
             Scene lobbyScene = new Scene(lobby.load(), CreateMap.WIDTH, CreateMap.HEIGHT);
 
