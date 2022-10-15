@@ -38,7 +38,18 @@ public class DollEnemy extends Enemy {
                 return direction[i];
             }
         }
+        int tmpX = c * Sprite.SizeOfTile;
+        int tmpY = r * Sprite.SizeOfTile + Sprite.MenuSize;
+        if(x != tmpX) {
+            if(x < tmpX) return 'r';
+            return 'l';
+        }
+        if(y != tmpY) {
+            if(y < tmpY) return 'd';
+            return 'u';
+        }
         return 'n';
+
     }
 
     private void BFS() {
@@ -100,7 +111,6 @@ public class DollEnemy extends Enemy {
             for (Bomb bomb : bomber.getBombList()) {
                 int u = (bomb.getY() - Sprite.MenuSize) / Sprite.SizeOfTile;
                 int v = (bomb.getX()) / Sprite.SizeOfTile;
-                type[u][v] = 2;
                 for (int i = 0; i < 4; i++) {
                     for (int k = 1; k <= bomb.getLevelOfFlame(); k++) {
                         if (CreateMap.listEntity.get(u + row[i] * k).get(v + col[i] * k) instanceof Obstacle) {
@@ -110,6 +120,11 @@ public class DollEnemy extends Enemy {
                         }
                     }
                 }
+            }
+            for (Bomb bomb : bomber.getBombList()) {
+                int u = (bomb.getY() - Sprite.MenuSize) / Sprite.SizeOfTile;
+                int v = (bomb.getX()) / Sprite.SizeOfTile;
+                type[u][v] = 2;
             }
         }
     }

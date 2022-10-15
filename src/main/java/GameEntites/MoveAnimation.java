@@ -94,7 +94,7 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((y + height - Sprite.MenuSize) % Sprite.SizeOfTile == 0) {
                 if (x % Sprite.SizeOfTile + width > Sprite.SizeOfTile) {
-                    if (x % Sprite.SizeOfTile + width / 2 <= Sprite.SizeOfTile) {
+                    if (x % Sprite.SizeOfTile + (width / 2) <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên trái.
                         if (!checkBoxIsObstacle(x, y + height, null)) {
                             x -= Math.min((x + width) % Sprite.SizeOfTile, tmpSpeed);
@@ -162,6 +162,15 @@ public abstract class MoveAnimation extends AnimationEntity {
                 }
             }
         }
+    }
+
+    public boolean checkCollisonRectangle(int x, int y, int w, int h) {
+        int u = Math.min(getX() + width, x + w) - Math.max(getX(), x);
+        int v = Math.min(getY() + height, y + h) - Math.max(getY(), y);
+        if(u >= 0 && v >= 0) {
+            if(u * v * 6 >= width * height) return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
