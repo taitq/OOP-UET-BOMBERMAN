@@ -35,7 +35,7 @@ public class Bomber extends MoveAnimation {
         super(x, y, image, speed);
         live = true;
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 1;
+        numberOfBomb = 10;
         levelOfFlame = 1;
         width = 22;
         height = 30;
@@ -220,8 +220,7 @@ public class Bomber extends MoveAnimation {
      */
     public boolean checkCollisonEnemy(List<Enemy> enemyList) {
         for (Enemy enemy : enemyList) {
-            Rectangle rectangle = new Rectangle(enemy.x + 5, enemy.y - 5, enemy.getImage().getWidth() - 5, enemy.getImage().getHeight() - 5);
-            if (imageView.getBoundsInParent().intersects(rectangle.getBoundsInParent())) {
+            if (checkCollisonRectangle(enemy.getX(), enemy.getY(), enemy.width, enemy.height)) {
                 killed();
                 live = false;
                 return true;
@@ -239,9 +238,7 @@ public class Bomber extends MoveAnimation {
 
     public boolean checkCollisonFlame(List<Flame> flameList) {
         for (Flame flame : flameList) {
-
-            Rectangle rectangle = new Rectangle(flame.x + 5, flame.y - 5, flame.getImage().getWidth() - 5, flame.getImage().getHeight() - 5);
-            if (imageView.getBoundsInParent().intersects(rectangle.getBoundsInParent())) {
+            if(checkCollisonRectangle(flame.getX(), flame.getY(), Sprite.SizeOfTile, Sprite.SizeOfTile)) {
                 killed();
                 live = false;
                 return true;

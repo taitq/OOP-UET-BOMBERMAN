@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Sprite;
 import javafx.scene.Group;
 import javafx.scene.control.skin.TextInputControlSkin;
 import javafx.scene.image.Image;
@@ -75,7 +76,7 @@ public abstract class Enemy extends MoveAnimation {
      */
     public void checkcollisonFlame(List<Flame> flameList) {
         for (Flame flame : flameList) {
-            if (imageView.getBoundsInParent().intersects(flame.getImageView().getBoundsInParent())) {
+            if (checkCollisonRectangle(flame.getX(), flame.getY(), Sprite.SizeOfTile, Sprite.SizeOfTile)) {
                 killed();
                 return;
             }
