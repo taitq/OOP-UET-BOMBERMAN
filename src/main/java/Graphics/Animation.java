@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -64,9 +63,6 @@ public class Animation {
         animationTimer.start();
     }
 
-    public void animation2() {
-
-    }
 
     public static long delay() {
         long endTime = System.nanoTime();
@@ -82,17 +78,24 @@ public class Animation {
     /**
      * kiem tra xem game over.
      */
-    public static void checkGameOver() {
-        for (Bomber bomber : map.bomberList) {
-            if (bomber.checkCollisonEnemy(map.enemyList)) {
-                gameOver = true;
-            }
-            for (Bomb bomb : bomber.getBombList()) {
-                if (bomber.checkCollisonFlame(bomb.flameList)) {
-                    gameOver = true;
-                }
-            }
+    public static boolean checkGameOver(Group group) {
+        if (Bomber.numberBomberLive == 0) {
+            gameOver = true;
+            return true;
         }
+        for (int i = 0; i < map.bomberList.size(); i++) {
+            map.bomberList.get(i).checkCollisonEnemy(map.enemyList);
+            for (Bomb bomb : Bomber.getBombList()) {
+                map.bomberList.get(i).checkCollisonFlame(bomb.flameList);
+            }
+            if (map.bomberList.get(i).getTimeDie() < 0) {
+                Bomber.numberBomberLive--;
+                group.getChildren().remove(map.bomberList.get(i).getImageView());
+                map.bomberList.remove(map.bomberList.get(i));
+            }
+
+        }
+        return false;
     }
 
     public static void playGame(int level, Scene scene, Group group) {
@@ -106,7 +109,6 @@ public class Animation {
             }
             bomb.update();
         }
-
         map.bombersHandleInput(group);
         // update Enemy list
         map.updateEnemyList(group);
@@ -118,13 +120,15 @@ public class Animation {
                 group.getChildren().add(flame.getImageView());
             }
         }
-        checkGameOver();
-        if (map.bomberList.get(0).isGoToPortal()) {
+        if (Bomber.isGoToPortal()) {
             level++;
             map = new CreateMap(map.type);
             map.createMap(level, scene);
             map.renderMap(group);
             playGame(level, scene, group);
+        }
+        if (checkGameOver(group)) {
+            return;
         }
     }
 

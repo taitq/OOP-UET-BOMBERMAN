@@ -1,13 +1,11 @@
 package GameEntites;
 
-import Graphics.Animation;
 import Graphics.Sprite;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,8 +25,12 @@ public class Bomber extends MoveAnimation {
     // bien kiem tra xem bomber live or die.
     protected boolean live;
     // bien kiem tra xem bomber di vao portal chua.
-    protected boolean isGoToPortal;
+    protected static boolean isGoToPortal;
     protected static KeyListener keyListener;
+    // bien dem nguoc thoi gian die la 60 frame.
+    protected int timeDie;
+    // so luong bomber con song.
+    public static int numberBomberLive = 0;
     protected final int MAX_TIME = 15;
 
     public Bomber(int x, int y, Image image, int speed, Scene scene) {
@@ -43,6 +45,8 @@ public class Bomber extends MoveAnimation {
         keyListener = new KeyListener(scene);
         isRunning = false;
         isGoToPortal = false;
+        timeDie = 60;
+        numberBomberLive++;
     }
 
     protected class KeyListener implements EventHandler<KeyEvent> {
@@ -99,7 +103,9 @@ public class Bomber extends MoveAnimation {
     public void update() {
         removeBomb();
         if (!live) {
-            Animation.gameOver = true;
+            killed();
+            timeDie--;
+            return;
         }
         move();
         changeImage();
@@ -142,51 +148,54 @@ public class Bomber extends MoveAnimation {
 
     // hàm di chuyển của bomber khi nhận sự kiện bàn phím.
     protected void move() {
-        boolean isPressed = false;
-        if (keyListener.isPressed(KeyCode.UP)) {
-            moveUp();
-            if (direction != 'u' || !isRunning) {
-                resetTime();
+        if (live) {
+            boolean isPressed = false;
+            if (keyListener.isPressed(KeyCode.UP)) {
+                moveUp();
+                if (direction != 'u' || !isRunning) {
+                    resetTime();
+                }
+                isPressed = true;
+                isRunning = true;
+                setImage(Sprite.player_up[(time / 5 + 1) % 3]);
+                direction = 'u';
             }
-            isPressed = true;
-            isRunning = true;
-            setImage(Sprite.player_up[(time / 5 + 1) % 3]);
-            direction = 'u';
-        }
-        if (keyListener.isPressed(KeyCode.DOWN)) {
-            moveDown();
-            if (direction != 'd' || !isRunning) {
-                resetTime();
+            if (keyListener.isPressed(KeyCode.DOWN)) {
+                moveDown();
+                if (direction != 'd' || !isRunning) {
+                    resetTime();
+                }
+                isPressed = true;
+                isRunning = true;
+                setImage(Sprite.player_down[(time / 5 + 1) % 3]);
+                direction = 'd';
             }
-            isPressed = true;
-            isRunning = true;
-            setImage(Sprite.player_down[(time / 5 + 1) % 3]);
-            direction = 'd';
-        }
-        if (keyListener.isPressed(KeyCode.LEFT)) {
-            moveLeft();
-            if (direction != 'l' || !isRunning) {
-                resetTime();
+            if (keyListener.isPressed(KeyCode.LEFT)) {
+                moveLeft();
+                if (direction != 'l' || !isRunning) {
+                    resetTime();
+                }
+                isPressed = true;
+                isRunning = true;
+                setImage(Sprite.player_left[(time / 5 + 1) % 3]);
+                direction = 'l';
             }
-            isPressed = true;
-            isRunning = true;
-            setImage(Sprite.player_left[(time / 5 + 1) % 3]);
-            direction = 'l';
-        }
-        if (keyListener.isPressed(KeyCode.RIGHT)) {
-            moveRight();
-            if (direction != 'r' || !isRunning) {
-                resetTime();
+            if (keyListener.isPressed(KeyCode.RIGHT)) {
+                moveRight();
+                if (direction != 'r' || !isRunning) {
+                    resetTime();
+                }
+                isPressed = true;
+                isRunning = true;
+                setImage(Sprite.player_right[(time / 5 + 1) % 3]);
+                direction = 'r';
             }
-            isPressed = true;
-            isRunning = true;
-            setImage(Sprite.player_right[(time / 5 + 1) % 3]);
-            direction = 'r';
+            if (keyListener.isPressed(KeyCode.SPACE)) {
+                setBomb(x + width / 2, y + height / 2);
+            }
+            isRunning = isPressed;
         }
-        if (keyListener.isPressed(KeyCode.SPACE)) {
-            setBomb(x + width / 2, y + height / 2);
-        }
-        isRunning = isPressed;
+
     }
 
     /**
@@ -216,35 +225,31 @@ public class Bomber extends MoveAnimation {
      * check collison with enemy.
      *
      * @param enemyList danh sach enemy.
-     * @return true if collison with enemy, false if not collison.
      */
-    public boolean checkCollisonEnemy(List<Enemy> enemyList) {
+    public void checkCollisonEnemy(List<Enemy> enemyList) {
         for (Enemy enemy : enemyList) {
             if (checkCollisonRectangle(enemy.getX(), enemy.getY(), enemy.width, enemy.height)) {
                 killed();
                 live = false;
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     /**
      * check flame kill bomber.
      *
      * @param flameList list flame.
-     * @return true if killed by flame, false if not.
      */
 
-    public boolean checkCollisonFlame(List<Flame> flameList) {
+    public void checkCollisonFlame(List<Flame> flameList) {
         for (Flame flame : flameList) {
-            if(checkCollisonRectangle(flame.getX(), flame.getY(), Sprite.SizeOfTile, Sprite.SizeOfTile)) {
+            if (checkCollisonRectangle(flame.getX(), flame.getY(), Sprite.SizeOfTile, Sprite.SizeOfTile)) {
                 killed();
                 live = false;
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     /**
@@ -287,11 +292,19 @@ public class Bomber extends MoveAnimation {
         return usedItem;
     }
 
-    public boolean isGoToPortal() {
+    public static boolean isGoToPortal() {
         return isGoToPortal;
     }
 
     public void setRunning(boolean running) {
         isRunning = running;
+    }
+
+    public void setTimeDie(int timeDie) {
+        this.timeDie = timeDie;
+    }
+
+    public int getTimeDie() {
+        return timeDie;
     }
 }

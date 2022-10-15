@@ -80,7 +80,7 @@ public class CreateMap {
                         }
                         case 'q' -> {
                             temp.add(new Grass(x, y, Sprite.grass));
-                            bomberList.add(new Bomber2(x, y, Sprite.player_down[0], 3, scene));
+                            bomberList.add(new Bomber2(x, y, Sprite.player2_down[0], 3, scene));
                         }
                         case '1' -> {
                             temp.add(new Grass(x, y, Sprite.grass));

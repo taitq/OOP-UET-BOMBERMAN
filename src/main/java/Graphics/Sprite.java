@@ -152,6 +152,7 @@ public class Sprite {
             newImage("player_down_1", SizeOfTile, SizeOfTile),
             newImage("player_down_2", SizeOfTile, SizeOfTile),
     };
+
     public static final Image[] player_left = {
             newImage("player_left", SizeOfTile, SizeOfTile),
             newImage("player_left_1", SizeOfTile, SizeOfTile),
@@ -166,6 +167,32 @@ public class Sprite {
             newImage("player_up", SizeOfTile, SizeOfTile),
             newImage("player_up_1", SizeOfTile, SizeOfTile),
             newImage("player_up_2", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_dead = {
+            newImage("player2_dead1", SizeOfTile, SizeOfTile),
+            newImage("player2_dead2", SizeOfTile, SizeOfTile),
+            newImage("player2_dead3", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_down = {
+            newImage("player2_down", SizeOfTile, SizeOfTile),
+            newImage("player2_down_1", SizeOfTile, SizeOfTile),
+            newImage("player2_down_2", SizeOfTile, SizeOfTile),
+    };
+
+    public static final Image[] player2_left = {
+            newImage("player2_left", SizeOfTile, SizeOfTile),
+            newImage("player2_left_1", SizeOfTile, SizeOfTile),
+            newImage("player2_left_2", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_right = {
+            newImage("player2_right", SizeOfTile, SizeOfTile),
+            newImage("player2_right_1", SizeOfTile, SizeOfTile),
+            newImage("player2_right_2", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_up = {
+            newImage("player2_up", SizeOfTile, SizeOfTile),
+            newImage("player2_up_1", SizeOfTile, SizeOfTile),
+            newImage("player2_up_2", SizeOfTile, SizeOfTile),
     };
     public static final Image portal = newImage("portal", SizeOfTile, SizeOfTile);
     public static final Image powerup_bombpass = newImage("powerup_bombpass", SizeOfTile, SizeOfTile);

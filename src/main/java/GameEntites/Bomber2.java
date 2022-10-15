@@ -28,11 +28,11 @@ public class Bomber2 extends Bomber {
     protected void changeImage() {
         if (!isRunning) {
             switch (direction) {
-                case 'd' -> setImage(Sprite.player_down[0]);
-                case 'u' -> setImage(Sprite.player_up[0]);
-                case 'l' -> setImage(Sprite.player_left[0]);
-                case 'r' -> setImage(Sprite.player_right[0]);
-                default -> setImage(Sprite.player_down[0]);
+                case 'd' -> setImage(Sprite.player2_down[0]);
+                case 'u' -> setImage(Sprite.player2_up[0]);
+                case 'l' -> setImage(Sprite.player2_left[0]);
+                case 'r' -> setImage(Sprite.player2_right[0]);
+                default -> setImage(Sprite.player2_down[0]);
             }
         } else {
             time++;
@@ -54,7 +54,7 @@ public class Bomber2 extends Bomber {
             }
             isPressed = true;
             isRunning = true;
-            setImage(Sprite.player_up[(time / 5 + 1) % 3]);
+            setImage(Sprite.player2_up[(time / 5 + 1) % 3]);
             direction = 'u';
         }
         if (keyListener.isPressed(KeyCode.S)) {
@@ -64,7 +64,7 @@ public class Bomber2 extends Bomber {
             }
             isPressed = true;
             isRunning = true;
-            setImage(Sprite.player_down[(time / 5 + 1) % 3]);
+            setImage(Sprite.player2_down[(time / 5 + 1) % 3]);
             direction = 'd';
         }
         if (keyListener.isPressed(KeyCode.A)) {
@@ -74,7 +74,7 @@ public class Bomber2 extends Bomber {
             }
             isPressed = true;
             isRunning = true;
-            setImage(Sprite.player_left[(time / 5 + 1) % 3]);
+            setImage(Sprite.player2_left[(time / 5 + 1) % 3]);
             direction = 'l';
         }
         if (keyListener.isPressed(KeyCode.D)) {
@@ -84,7 +84,7 @@ public class Bomber2 extends Bomber {
             }
             isPressed = true;
             isRunning = true;
-            setImage(Sprite.player_right[(time / 5 + 1) % 3]);
+            setImage(Sprite.player2_right[(time / 5 + 1) % 3]);
             direction = 'r';
         }
         if (keyListener.isPressed(KeyCode.ENTER)) {
@@ -98,7 +98,7 @@ public class Bomber2 extends Bomber {
      * describe state be killed of bomber
      */
     public void killed() {
-        setImage(Sprite.player_dead[0]);
+        setImage(Sprite.player2_dead[0]);
     }
 
 

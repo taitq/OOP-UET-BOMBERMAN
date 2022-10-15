@@ -34,7 +34,7 @@ public abstract class MoveAnimation extends AnimationEntity {
         if (CreateMap.listEntity.get(r).get(c) instanceof Obstacle) {
             return true;
         }
-        for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
+        for (Bomb bomb : Bomber.getBombList()) {
             if (!bomb.equals(tmp)) {
                 if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
                         && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
@@ -47,7 +47,7 @@ public abstract class MoveAnimation extends AnimationEntity {
 
     //kiểm tra xem ô(x,y) có bomb ko.
     private Bomb bombInBox(int x, int y) {
-        for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
+        for (Bomb bomb : Bomber.getBombList()) {
             if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
                     && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
                 return bomb;
