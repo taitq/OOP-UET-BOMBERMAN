@@ -12,8 +12,11 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.IOException;
 
+import static javax.sound.sampled.Clip.LOOP_CONTINUOUSLY;
+
 public class Main extends Application {
     public Scene choiceScene;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -39,8 +42,8 @@ public class Main extends Application {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
+            clip.loop(LOOP_CONTINUOUSLY);
             clip.start();
-
             FXMLLoader lobby = new FXMLLoader(getClass().getResource("FXML/Lobby.fxml"));
             Scene lobbyScene = new Scene(lobby.load(), CreateMap.WIDTH, CreateMap.HEIGHT);
 

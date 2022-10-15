@@ -81,16 +81,16 @@ public class Bomb extends UnmoveEntity implements Obstacle {
                 for(int k = 1; k <= levelOfFlame; k++) {
                     int tmpR = r + col[i] * k;
                     int tmpC = c + row[i] * k;
-                    if(checkObstacle(tmpR, tmpC) == false) {
+                    if (!checkObstacle(tmpR, tmpC)) {
                         int tmpX = x + row[i] * k * Sprite.SizeOfTile;
                         int tmpY = y + col[i] * k * Sprite.SizeOfTile;
-                        if(k == levelOfFlame) {
+                        if (k == levelOfFlame) {
                             flameList.add(new Flame(tmpX, tmpY, null, explosion_last[i]));
                         } else {
                             flameList.add(new Flame(tmpX, tmpY, null, explosion[i]));
                         }
                     } else {
-                        if(CreateMap.listEntity.get(tmpR).get(tmpC) instanceof Brick) {
+                        if (CreateMap.listEntity.get(tmpR).get(tmpC) instanceof Brick) {
                             brickList.add((Brick) CreateMap.listEntity.get(tmpR).get(tmpC));
                         }
                         break;
@@ -98,7 +98,7 @@ public class Bomb extends UnmoveEntity implements Obstacle {
                 }
             }
         }
-        if(explode == true) {
+        if (explode) {
             for (Flame flame : flameList) {
                 flame.update();
             }

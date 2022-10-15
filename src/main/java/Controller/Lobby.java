@@ -24,18 +24,20 @@ public class Lobby {
         Group group = new Group();
         group.getChildren().add(canvas);
         Scene scene = new Scene(group);
-        Animation onePlayer = new Animation();
+        Animation onePlayer = new Animation(1);
         onePlayer.animation(scene, group, event);
         primaryStage.setScene(scene);
     }
 
-    public void TwoPlayer(ActionEvent event) {
+    public void twoPlayer(ActionEvent event) {
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
         Group group = new Group();
         group.getChildren().add(canvas);
         Scene scene = new Scene(group);
+        Animation onePlayer = new Animation(2);
+        onePlayer.animation(scene, group, event);
         primaryStage.setScene(scene);
 
     }

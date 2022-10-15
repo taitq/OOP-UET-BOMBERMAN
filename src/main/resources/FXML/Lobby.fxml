@@ -7,17 +7,18 @@
 
 <AnchorPane prefHeight="420.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Controller.Lobby">
-   <children>
-      <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@/Picture/Lobby.jpg"/>
-         </image>
-      </ImageView>
-      <Button layoutX="399.0" layoutY="146.0" mnemonicParsing="false" onAction="#onePlayer" prefHeight="26.0"
-              prefWidth="102.0" text="1 PLAYER" textAlignment="CENTER"/>
-      <Button layoutX="399.0" layoutY="210.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0"
-              text="2 PLAYER"/>
-      <Button layoutX="399.0" layoutY="270.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="101.0" text="EXIT"/>
-   </children>
+    <children>
+        <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../Picture/Lobby.jpg"/>
+            </image>
+        </ImageView>
+        <Button layoutX="399.0" layoutY="146.0" mnemonicParsing="false" onAction="#onePlayer" prefHeight="26.0"
+                prefWidth="102.0" text="1 PLAYER" textAlignment="CENTER"/>
+        <Button layoutX="399.0" layoutY="210.0" mnemonicParsing="false" onAction="#twoPlayer" prefHeight="26.0"
+                prefWidth="102.0" text="2 PLAYER"/>
+        <Button layoutX="399.0" layoutY="270.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="101.0"
+                text="EXIT"/>
+    </children>
 </AnchorPane>

@@ -15,27 +15,27 @@ import java.util.List;
 import java.util.Set;
 
 public class Bomber extends MoveAnimation {
-    private List<Bomb> bombList;
-    private int numberOfBomb;
-    private int levelOfFlame;
+    protected static List<Bomb> bombList;
+    protected int numberOfBomb;
+    protected int levelOfFlame;
     // biến đếm ngược frame để thay đổi image.
-    private int time;
+    protected int time;
     // biến kiểm tra xem bomber có di chuyển không.
-    private boolean isRunning;
+    protected boolean isRunning;
     // hướng di chuyển hiện tại của bomber.
-    private char direction = 'd';
+    protected char direction = 'd';
     // bien kiem tra xem bomber live or die.
-    private boolean live;
+    protected boolean live;
     // bien kiem tra xem bomber di vao portal chua.
-    private boolean isGoToPortal;
-    private KeyListener keyListener;
-    private final int MAX_TIME = 15;
+    protected boolean isGoToPortal;
+    protected static KeyListener keyListener;
+    protected final int MAX_TIME = 15;
 
     public Bomber(int x, int y, Image image, int speed, Scene scene) {
         super(x, y, image, speed);
         live = true;
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 10;
+        numberOfBomb = 1;
         levelOfFlame = 1;
         width = 22;
         height = 30;
@@ -45,7 +45,7 @@ public class Bomber extends MoveAnimation {
         isGoToPortal = false;
     }
 
-    private class KeyListener implements EventHandler<KeyEvent> {
+    protected class KeyListener implements EventHandler<KeyEvent> {
         final private Set<KeyCode> activeKeys = new HashSet<>();
 
         public KeyListener(Scene scene) {
@@ -83,12 +83,12 @@ public class Bomber extends MoveAnimation {
         this.numberOfBomb = numberOfBomb;
     }
 
-    public List<Bomb> getBombList() {
+    public static List<Bomb> getBombList() {
         return bombList;
     }
 
     // hàm khởi tạo lại giá trị của biến time.
-    private void resetTime() {
+    protected void resetTime() {
         time = 0;
     }
 
@@ -98,7 +98,7 @@ public class Bomber extends MoveAnimation {
     @Override
     public void update() {
         removeBomb();
-        if (live == false) {
+        if (!live) {
             Animation.gameOver = true;
         }
         move();
@@ -106,8 +106,8 @@ public class Bomber extends MoveAnimation {
     }
 
     //hàm thay đổi ảnh của bomber khi di chuyển.
-    private void changeImage() {
-        if (isRunning == false) {
+    protected void changeImage() {
+        if (!isRunning) {
             switch (direction) {
                 case 'd' -> setImage(Sprite.player_down[0]);
                 case 'u' -> setImage(Sprite.player_up[0]);
@@ -127,7 +127,7 @@ public class Bomber extends MoveAnimation {
     /**
      * xóa những bomb đã nổ.
      */
-    private void removeBomb() {
+    protected void removeBomb() {
         List<Bomb> tmp = new ArrayList<>();
         for (Bomb bomb : bombList) {
             if (bomb.getRemainingFrame() <= -45) {
@@ -141,7 +141,7 @@ public class Bomber extends MoveAnimation {
     }
 
     // hàm di chuyển của bomber khi nhận sự kiện bàn phím.
-    private void move() {
+    protected void move() {
         boolean isPressed = false;
         if (keyListener.isPressed(KeyCode.UP)) {
             moveUp();
@@ -192,7 +192,7 @@ public class Bomber extends MoveAnimation {
     /**
      * Đặt thêm 1 quả bomb mới.
      */
-    private void setBomb(int x, int y) {
+    protected void setBomb(int x, int y) {
         if (bombList.size() < numberOfBomb) {
             // làm tròn tọa độ x, y.
             x -= x % Sprite.SizeOfTile;
