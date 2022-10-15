@@ -19,11 +19,6 @@ public class OnealEnemy extends Enemy {
     }
 
     @Override
-    public void move() {
-
-    }
-
-    @Override
     public char getDirection() {
         if (oldX == x && oldY == y) {
             if (direction == 'u') {
@@ -37,8 +32,4 @@ public class OnealEnemy extends Enemy {
         return direction;
     }
 
-    @Override
-    public void killed() {
-        setImage(Sprite.balloon_dead);
-    }
 }

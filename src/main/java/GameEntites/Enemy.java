@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Sprite;
 import javafx.scene.Group;
 import javafx.scene.control.skin.TextInputControlSkin;
 import javafx.scene.image.Image;
@@ -17,16 +18,16 @@ public abstract class Enemy extends MoveAnimation {
     protected Image[] enemy_right;
     protected Image enemy_dead;
     //hướng của ảnh enemy.
-    private char directionOfImage;
+    private char directionOfImage = 'l';
     //hướng di chuyển tiếp theo của enemy.
     private char newDirection;
     private int time = 0;
-    private final int MAX_TIME = 60;
+    private final int MAX_TIME = 30;
 
 
     public boolean isKilled = false;
     // thoi gian tu luc enemy chet toi luc enemy bi xoa khoi man hinh
-    private int timeDie = 120;
+    private int timeDie = 60;
 
     public Enemy(int x, int y, Image image, int speed) {
         super(x, y, image, speed);
@@ -39,19 +40,23 @@ public abstract class Enemy extends MoveAnimation {
 
     @Override
     public void update() {
+        if(isKilled) {
+            timeDie--;
+            return;
+        }
         newDirection = getDirection();
         switch (newDirection) {
-            case 'u' : moveUp();
-            case 'd' : moveDown();
-            case 'l' : moveLeft();
-            case 'r' : moveRight();
+            case 'u' -> moveUp();
+            case 'd' -> moveDown();
+            case 'l' -> moveLeft();
+            case 'r' -> moveRight();
         }
         if(directionOfImage == 'l' && newDirection == 'r') {
             resetTime();
             directionOfImage = 'r';
         }
         if(directionOfImage == 'r' && newDirection == 'l') {
-            resetTime();;
+            resetTime();
             directionOfImage = 'l';
         }
         if(directionOfImage == 'l') {
@@ -64,8 +69,6 @@ public abstract class Enemy extends MoveAnimation {
         imageView.relocate(x, y);
     }
 
-    public abstract void move();
-
     /**
      * check flame kill enemy.
      *
@@ -73,8 +76,7 @@ public abstract class Enemy extends MoveAnimation {
      */
     public void checkcollisonFlame(List<Flame> flameList) {
         for (Flame flame : flameList) {
-            if (imageView.getBoundsInParent().intersects(flame.getImageView().getBoundsInParent())) {
-                isKilled = true;
+            if (checkCollisonRectangle(flame.getX(), flame.getY(), Sprite.SizeOfTile, Sprite.SizeOfTile)) {
                 killed();
                 return;
             }
@@ -84,7 +86,10 @@ public abstract class Enemy extends MoveAnimation {
     /**
      * describe state killed of enemy.
      */
-    public abstract void killed();
+    public void killed() {
+        isKilled = true;
+        setImage(enemy_dead);
+    }
 
     public int getTimeDie() {
         return timeDie;

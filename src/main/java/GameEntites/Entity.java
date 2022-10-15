@@ -49,6 +49,7 @@ public abstract class Entity {
     }
 
     public void setX(int x) {
+        imageView.relocate(x, y);
         this.x = x;
     }
 
@@ -57,12 +58,13 @@ public abstract class Entity {
     }
 
     public void setY(int y) {
+        imageView.relocate(x, y);
         this.y = y;
     }
 
     public void setImage(Image image) {
         this.image = image;
-        imageView.setImage(image);
+        imageView.setImage(this.image);
     }
 
     public Image getImage() {

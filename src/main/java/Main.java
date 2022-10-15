@@ -1,38 +1,53 @@
-import GameEntites.Bomber;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import Graphics.*;
 
-import java.awt.*;
+import Controller.Lobby;
+import Graphics.CreateMap;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
+    public Scene choiceScene;
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
+       /* Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
         Group group = new Group();
         group.getChildren().add(canvas);
-
         Scene scene = new Scene(group);
         Animation.animation(scene, group);
         primaryStage.setScene(scene);
+        File file = new File("src/main/resources/Music/test.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
         primaryStage.show();
+*/
+        try {
+            // play audio background
+            File file = new File("src/main/resources/Music/test.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
 
+            FXMLLoader lobby = new FXMLLoader(getClass().getResource("FXML/Lobby.fxml"));
+            Scene lobbyScene = new Scene(lobby.load(), CreateMap.WIDTH, CreateMap.HEIGHT);
+
+            primaryStage.setScene(lobbyScene);
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

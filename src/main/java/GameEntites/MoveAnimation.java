@@ -37,7 +37,7 @@ public abstract class MoveAnimation extends AnimationEntity {
         for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
             if (!bomb.equals(tmp)) {
                 if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                        && bomb.getY() <= x && y < bomb.getY() + Sprite.SizeOfTile) {
+                        && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
                     return true;
                 }
             }
@@ -49,7 +49,7 @@ public abstract class MoveAnimation extends AnimationEntity {
     private Bomb bombInBox(int x, int y) {
         for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
             if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                    && bomb.getY() <= x && y < bomb.getY() + Sprite.SizeOfTile) {
+                    && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
                 return bomb;
             }
         }
@@ -67,12 +67,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((y - Sprite.MenuSize) % Sprite.SizeOfTile == 0) {
                 if (x % Sprite.SizeOfTile + width > Sprite.SizeOfTile) {
-                    if (x % Sprite.SizeOfTile + (width / 3) * 2 <= Sprite.SizeOfTile) {
+                    if (x % Sprite.SizeOfTile + width / 2 <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên trái.
                         if (!checkBoxIsObstacle(x, y - Sprite.SizeOfTile, null)) {
                             x -= Math.min((x + width) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if(x % Sprite.SizeOfTile + (width / 3) >= Sprite.SizeOfTile) {
+                    } else if(x % Sprite.SizeOfTile + width / 2 >= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên phải.
                         if (!checkBoxIsObstacle(x + width, y - Sprite.SizeOfTile, null)) {
                             x += Math.min(Sprite.SizeOfTile - x % Sprite.SizeOfTile, tmpSpeed);
@@ -94,12 +94,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((y + height - Sprite.MenuSize) % Sprite.SizeOfTile == 0) {
                 if (x % Sprite.SizeOfTile + width > Sprite.SizeOfTile) {
-                    if (x % Sprite.SizeOfTile + (width / 3) * 2 <= Sprite.SizeOfTile) {
+                    if (x % Sprite.SizeOfTile + (width / 2) <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên trái.
                         if (!checkBoxIsObstacle(x, y + height, null)) {
                             x -= Math.min((x + width) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if(x % Sprite.SizeOfTile + (width / 3) >= Sprite.SizeOfTile){
+                    } else if(x % Sprite.SizeOfTile + (width / 2) >= Sprite.SizeOfTile){
                         //trường hợp hơn nửa bomber theo chiều dọc nằm bên phải.
                         if (!checkBoxIsObstacle(x + width, y + height, null)) {
                             x += Math.min(Sprite.SizeOfTile - x % Sprite.SizeOfTile, tmpSpeed);
@@ -121,12 +121,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if (x % Sprite.SizeOfTile == 0) {
                 if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + height > Sprite.SizeOfTile) {
-                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 3) * 2 <= Sprite.SizeOfTile) {
+                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 2) <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên trên.
                         if (!checkBoxIsObstacle(x - Sprite.SizeOfTile, y, null)) {
                             y -= Math.min((y + height) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height/ 3) >= Sprite.SizeOfTile) {
+                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height/ 2) >= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên dưới.
                         if (!checkBoxIsObstacle(x - Sprite.SizeOfTile, y + Sprite.SizeOfTile, null)) {
                             y += Math.min(Sprite.SizeOfTile - (y - Sprite.MenuSize) % Sprite.SizeOfTile, tmpSpeed);
@@ -148,12 +148,12 @@ public abstract class MoveAnimation extends AnimationEntity {
             //nâng cấp khả năng di chuyển của bomber.
             if ((x + width) % Sprite.SizeOfTile == 0) {
                 if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + height > Sprite.SizeOfTile) {
-                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 3) * 2 <= Sprite.SizeOfTile) {
+                    if ((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 2) <= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên trên.
                         if (!checkBoxIsObstacle(x + Sprite.SizeOfTile, y, null)) {
                             y -= Math.min((y + height) % Sprite.SizeOfTile, tmpSpeed);
                         }
-                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height/ 3) >= Sprite.SizeOfTile) {
+                    } else if((y - Sprite.MenuSize) % Sprite.SizeOfTile + (height / 2) >= Sprite.SizeOfTile) {
                         //trường hợp hơn nửa bomber theo chiều ngang nằm bên dưới.
                         if (!checkBoxIsObstacle(x + Sprite.SizeOfTile, y + Sprite.SizeOfTile, null)) {
                             y += Math.min(Sprite.SizeOfTile - (y - Sprite.MenuSize) % Sprite.SizeOfTile, tmpSpeed);
@@ -162,6 +162,15 @@ public abstract class MoveAnimation extends AnimationEntity {
                 }
             }
         }
+    }
+
+    public boolean checkCollisonRectangle(int x, int y, int w, int h) {
+        int u = Math.min(getX() + width, x + w) - Math.max(getX(), x);
+        int v = Math.min(getY() + height, y + h) - Math.max(getY(), y);
+        if(u >= 0 && v >= 0) {
+            if(u * v * 6 >= width * height) return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
