@@ -2,7 +2,9 @@ package Graphics;
 
 import GameEntites.Bomb;
 import GameEntites.Bomber;
+import GameEntites.Entity;
 import GameEntites.Flame;
+import Run.Main;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,13 +12,13 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +32,7 @@ public class Animation {
     public static CreateMap map;
     public static Stage thisStage;
     public int type;
-    public static int level = 1;
+    public static boolean victory = false;
 
     public Animation(int type) {
         this.type = type;
@@ -39,26 +41,25 @@ public class Animation {
     }
 
     public void animation(Scene scene, Group group, ActionEvent event) {
-        int type = 1;
         thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        map.createMap(1, scene);
+        map.createMap(scene);
         map.renderMap(group);
         lastTime = System.nanoTime();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (!gameOver) {
+                if (!gameOver && !victory) {
                     playGame(scene, group);
 
-                } else {
-                    gameOver = false;
+                } else if (!victory) {
                     this.stop();
                     Audio.background.pause();
                     choice();
-                   /* Audio.bomberDie.setOnEndOfMedia(() -> {
-
-                    });*/
+                } else {
+                    this.stop();
+                    Audio.background.pause();
+                    Victory();
                 }
                 try {
                     TimeUnit.NANOSECONDS.sleep(delay());
@@ -90,15 +91,15 @@ public class Animation {
             gameOver = true;
             return true;
         }
-        for (int i = 0; i < map.bomberList.size(); i++) {
-            map.bomberList.get(i).checkCollisonEnemy(map.enemyList);
-            for (Bomb bomb : Bomber.getBombList()) {
-                map.bomberList.get(i).checkCollisonFlame(bomb.flameList);
+        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+            CreateMap.bomberList.get(i).checkCollisonEnemy(map.enemyList);
+            for (Bomb bomb : CreateMap.bomberList.get(i).getBombList()) {
+                CreateMap.bomberList.get(i).checkCollisonFlame(bomb.flameList);
             }
-            if (map.bomberList.get(i).getTimeDie() < 0) {
+            if (CreateMap.bomberList.get(i).getTimeDie() < 0) {
+                group.getChildren().remove(CreateMap.bomberList.get(i).getImageView());
+                CreateMap.bomberList.remove(CreateMap.bomberList.get(i));
                 Bomber.numberBomberLive--;
-                group.getChildren().remove(map.bomberList.get(i).getImageView());
-                map.bomberList.remove(map.bomberList.get(i));
             }
 
         }
@@ -106,50 +107,79 @@ public class Animation {
     }
 
     public static void playGame(Scene scene, Group group) {
+        if (checkGameOver(group)) {
+            choice();
+        }
         Audio.lobby.pause();
         Audio.background.setVolume(0.5);
         Audio.background.play();
         Audio.background.setCycleCount(MediaPlayer.INDEFINITE);
-        List<Bomb> bombList = Bomber.getBombList();
-        for (Bomb bomb : bombList) {
-            //remove bomb which are explosive.
-            group.getChildren().remove(bomb.getImageView());
-            // remove flame which are explosive.
-            for (Flame flame : bomb.flameList) {
-                group.getChildren().remove(flame.getImageView());
-            }
-            bomb.update();
+        List<List<Bomb>> bombList = new ArrayList<>();
+        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+            bombList.add(CreateMap.bomberList.get(i).getBombList());
         }
+        for (List<Bomb> bombList1 : bombList) {
+            for (Bomb bomb : bombList1) {
+                //remove bomb which are explosive.
+                group.getChildren().remove(bomb.getImageView());
+                // remove flame which are explosive.
+                for (Flame flame : bomb.flameList) {
+                    group.getChildren().remove(flame.getImageView());
+                }
+                bomb.update();
+            }
+        }
+
         map.bombersHandleInput(group);
         // update Enemy list
         map.updateEnemyList(group);
         // update flame list to group.
-        for (Bomb bomb : bombList) {
-            //bomb.update();
-            group.getChildren().add(bomb.getImageView());
-            for (Flame flame : bomb.flameList) {
-                group.getChildren().add(flame.getImageView());
+        for (List<Bomb> bombList1 : bombList) {
+            for (Bomb bomb : bombList1) {
+                //bomb.update();
+                group.getChildren().add(bomb.getImageView());
+                for (Flame flame : bomb.flameList) {
+                    group.getChildren().add(flame.getImageView());
+                }
             }
         }
+
         if (Bomber.isGoToPortal()) {
-            level++;
+            Bomber.numberBomberLive = 0;
             map = new CreateMap(map.type);
-            map.createMap(level, scene);
-            map.renderMap(group);
-            playGame(scene, group);
-        }
-        if (checkGameOver(group)) {
-            return;
+            CreateMap.level++;
+            if (CreateMap.level <= CreateMap.LEVEL_MAX) {
+                map.createMap(scene);
+                map.renderMap(group);
+                playGame(scene, group);
+            } else {
+                victory = true;
+                return;
+            }
+
         }
     }
 
-    public void choice() {
+    // victory game
+    private static void Victory() {
+        try {
+            victory = false;
+            Audio.lobby.play();
+            thisStage.setScene(Run.Main.menuScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void choice() {
         try {
             FileInputStream fileInputStream = new FileInputStream(new File("src/main/resources/FXML/PlayAgainOrExit.fxml"));
             FXMLLoader loader = new FXMLLoader();
             Parent choiceRoot = loader.load(fileInputStream);
             Scene choiceScene = new Scene(choiceRoot);
             thisStage.setScene(choiceScene);
+            Audio.gameOver.play();
+            Audio.gameOver.setOnEndOfMedia(Audio.gameOver::stop);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package Controller;
 
+import GameEntites.Bomber;
 import Graphics.Animation;
 import Graphics.Audio;
 import Graphics.CreateMap;
@@ -16,16 +17,19 @@ import static javafx.application.Platform.exit;
 public class PlayAgainOrExit {
     @FXML
     public void playAgain(ActionEvent event) {
+        CreateMap.level = 1;
+        Audio.gameOver.pause();
         Audio.menuSelect.play();
         Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
+        Animation.gameOver = false;
         int type = Animation.map.type;
+        Bomber.numberBomberLive = type;
         Stage thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Group group = new Group();
         Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
         group.getChildren().add(canvas);
         Scene scene = new Scene(group);
         Animation.map = new CreateMap(type);
-        Animation.gameOver = false;
         Animation animation = new Animation(type);
         animation.animation(scene, group, event);
         thisStage.setScene(scene);

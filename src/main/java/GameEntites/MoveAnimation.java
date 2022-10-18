@@ -34,25 +34,31 @@ public abstract class MoveAnimation extends AnimationEntity {
         if (CreateMap.listEntity.get(r).get(c) instanceof Obstacle) {
             return true;
         }
-        for (Bomb bomb : Bomber.getBombList()) {
-            if (!bomb.equals(tmp)) {
-                if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                        && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
-                    return true;
+        for (Bomber bomber : CreateMap.bomberList) {
+            for (Bomb bomb : bomber.getBombList()) {
+                if (!bomb.equals(tmp)) {
+                    if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
+                            && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
+                        return true;
+                    }
                 }
             }
         }
+
         return false;
     }
 
     //kiểm tra xem ô(x,y) có bomb ko.
     private Bomb bombInBox(int x, int y) {
-        for (Bomb bomb : Bomber.getBombList()) {
-            if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                    && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
-                return bomb;
+        for (Bomber bomber : CreateMap.bomberList) {
+            for (Bomb bomb : bomber.getBombList()) {
+                if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
+                        && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
+                    return bomb;
+                }
             }
         }
+
         return null;
     }
 

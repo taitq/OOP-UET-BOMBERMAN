@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 public class Lobby {
     @FXML
     public void onePlayer(ActionEvent event) throws Exception {
+        CreateMap.level = 1;
         Audio.menuSelect.play();
         Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -28,6 +29,7 @@ public class Lobby {
     }
 
     public void twoPlayer(ActionEvent event) {
+        CreateMap.level = 1;
         Audio.menuSelect.play();
         Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -15,7 +15,6 @@ public class Bomber2 extends Bomber {
         super(x, y, image, speed, scene);
         live = true;
         //this.numberOfBomb = Math.max(1, numberOfBomb);
-        numberOfBomb = 1;
         levelOfFlame = 1;
         width = 22;
         height = 30;
@@ -88,7 +87,7 @@ public class Bomber2 extends Bomber {
             setImage(Sprite.player2_right[(time / 5 + 1) % 3]);
             direction = 'r';
         }
-        if (keyListener.isPressed(KeyCode.ENTER)) {
+        if (keyListener.isPressed(KeyCode.SPACE)) {
             setBomb(x + width / 2, y + height / 2);
         }
         isRunning = isPressed;
@@ -99,6 +98,7 @@ public class Bomber2 extends Bomber {
      * describe state be killed of bomber
      */
     public void killed() {
+        Audio.bomberDie.setVolume(0.5);
         Audio.bomberDie.play();
         Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
         setImage(Sprite.player2_dead[0]);

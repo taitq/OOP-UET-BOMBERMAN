@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Bomber extends MoveAnimation {
-    protected static List<Bomb> bombList;
+    protected List<Bomb> bombList;
     protected int numberOfBomb;
     protected int levelOfFlame;
     // biến đếm ngược frame để thay đổi image.
@@ -48,6 +48,7 @@ public class Bomber extends MoveAnimation {
         isGoToPortal = false;
         timeDie = 60;
         numberBomberLive++;
+        numberOfBomb = 1;
     }
 
     protected class KeyListener implements EventHandler<KeyEvent> {
@@ -88,7 +89,7 @@ public class Bomber extends MoveAnimation {
         this.numberOfBomb = numberOfBomb;
     }
 
-    public static List<Bomb> getBombList() {
+    public List<Bomb> getBombList() {
         return bombList;
     }
 
@@ -191,7 +192,7 @@ public class Bomber extends MoveAnimation {
                 setImage(Sprite.player_right[(time / 5 + 1) % 3]);
                 direction = 'r';
             }
-            if (keyListener.isPressed(KeyCode.SPACE)) {
+            if (keyListener.isPressed(KeyCode.ENTER)) {
                 setBomb(x + width / 2, y + height / 2);
             }
             isRunning = isPressed;
@@ -259,6 +260,7 @@ public class Bomber extends MoveAnimation {
      * describe state be killed of bomber
      */
     public void killed() {
+        Audio.bomberDie.setVolume(0.5);
         Audio.bomberDie.play();
         Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
         setImage(Sprite.player_dead[0]);

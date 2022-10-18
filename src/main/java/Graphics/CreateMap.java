@@ -20,11 +20,13 @@ public class CreateMap {
     public static int HEIGHT = 420;
     public static List<List<Entity>> listEntity;
     public List<Enemy> enemyList;
-    public List<Bomber> bomberList;
+    public static List<Bomber> bomberList;
     public List<Item> itemList;
     public Portal portal;
     // type 1 player/2 player.
-    public int type = 1;
+    public int type;
+    public static int level = 1;
+    public static int LEVEL_MAX = 3;
 
     public CreateMap(int type) {
         listEntity = new ArrayList<>();
@@ -36,10 +38,8 @@ public class CreateMap {
 
     /**
      * tạo map.
-     *
-     * @param level level của map.
      */
-    public void createMap(int level, Scene scene) {
+    public void createMap(Scene scene) {
         try {
             FileInputStream fileInputStream = new FileInputStream("src/main/resources/Level/Level" + level + ".txt");
             if (type == 2) {
