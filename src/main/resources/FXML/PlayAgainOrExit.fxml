@@ -13,7 +13,7 @@
       <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0"
                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../Picture/gameOver.png"/>
+            <Image url="/Picture/gameOver.png"/>
          </image>
       </ImageView>
       <Button alignment="CENTER" layoutX="672.0" layoutY="210.0" mnemonicParsing="false" onAction="#playAgain"
@@ -21,7 +21,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../Picture/playAgainIcon.png"/>
+                  <Image url="/Picture/playAgainIcon.png"/>
                </image>
             </ImageView>
          </graphic>
@@ -38,7 +38,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../Picture/exit.png"/>
+                  <Image url="/Picture/exit.png"/>
                </image>
             </ImageView>
          </graphic>
