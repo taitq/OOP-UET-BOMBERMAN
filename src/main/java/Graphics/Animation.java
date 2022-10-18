@@ -2,9 +2,7 @@ package Graphics;
 
 import GameEntites.Bomb;
 import GameEntites.Bomber;
-import GameEntites.Entity;
 import GameEntites.Flame;
-import Run.Main;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +10,20 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -148,6 +154,8 @@ public class Animation {
             Bomber.numberBomberLive = 0;
             map = new CreateMap(map.type);
             CreateMap.level++;
+            Audio.nextLevel.play();
+            Audio.nextLevel.setOnEndOfMedia(Audio.nextLevel::stop);
             if (CreateMap.level <= CreateMap.LEVEL_MAX) {
                 map.createMap(scene);
                 map.renderMap(group);
@@ -164,8 +172,31 @@ public class Animation {
     private static void Victory() {
         try {
             victory = false;
-            Audio.lobby.play();
-            thisStage.setScene(Run.Main.menuScene);
+            Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
+            Group group = new Group();
+            group.getChildren().add(canvas);
+            Image image = new Image(Files.newInputStream(Paths.get("src/main/resources/Picture/victory.png")));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(CreateMap.WIDTH);
+            imageView.setFitHeight(CreateMap.HEIGHT);
+            group.getChildren().add(imageView);
+            Scene scene = new Scene(group);
+            thisStage.setScene(scene);
+            thisStage.show();
+            Audio.victory.play();
+            Audio.victory.setOnEndOfMedia(() -> {
+                try {
+
+                    Audio.lobby.play();
+
+                    thisStage.setScene(Run.Main.menuScene);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

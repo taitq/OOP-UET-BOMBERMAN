@@ -18,6 +18,9 @@ public class Audio {
     public static final MediaPlayer item = media("item");
     public static final MediaPlayer enemyDie = media("enemyDie");
     public static final MediaPlayer gameOver = media("gameOver");
+    public static final MediaPlayer victory = media("victory");
+    public static final MediaPlayer nextLevel = media("nextLevel");
+
     public static MediaPlayer media(String name) {
         try {
             String path = "src/main/resources/Music/" + name + ".mp3";
