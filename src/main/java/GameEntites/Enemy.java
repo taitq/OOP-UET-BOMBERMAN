@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Audio;
 import Graphics.Sprite;
 import javafx.scene.Group;
 import javafx.scene.control.skin.TextInputControlSkin;
@@ -88,6 +89,8 @@ public abstract class Enemy extends MoveAnimation {
      */
     public void killed() {
         isKilled = true;
+        Audio.enemyDie.play();
+        Audio.enemyDie.setOnEndOfMedia(Audio.enemyDie::stop);
         setImage(enemy_dead);
     }
 

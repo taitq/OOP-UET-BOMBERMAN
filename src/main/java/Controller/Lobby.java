@@ -1,6 +1,7 @@
 package Controller;
 
 import Graphics.Animation;
+import Graphics.Audio;
 import Graphics.CreateMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
-
 public class Lobby {
     @FXML
     public void onePlayer(ActionEvent event) throws Exception {
+        Audio.menuSelect.play();
+        Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);
@@ -30,6 +28,8 @@ public class Lobby {
     }
 
     public void twoPlayer(ActionEvent event) {
+        Audio.menuSelect.play();
+        Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);

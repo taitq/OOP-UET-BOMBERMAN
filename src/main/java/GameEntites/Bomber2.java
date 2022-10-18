@@ -1,5 +1,6 @@
 package GameEntites;
 
+import Graphics.Audio;
 import Graphics.Sprite;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -98,6 +99,8 @@ public class Bomber2 extends Bomber {
      * describe state be killed of bomber
      */
     public void killed() {
+        Audio.bomberDie.play();
+        Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
         setImage(Sprite.player2_dead[0]);
     }
 

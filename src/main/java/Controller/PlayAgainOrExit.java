@@ -1,6 +1,7 @@
 package Controller;
 
 import Graphics.Animation;
+import Graphics.Audio;
 import Graphics.CreateMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,8 @@ import static javafx.application.Platform.exit;
 public class PlayAgainOrExit {
     @FXML
     public void playAgain(ActionEvent event) {
+        Audio.menuSelect.play();
+        Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         int type = Animation.map.type;
         Stage thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Group group = new Group();
@@ -30,6 +33,8 @@ public class PlayAgainOrExit {
 
     @FXML
     public void exitGame(ActionEvent event) {
+        Audio.menuSelect.play();
+        Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         exit();
     }
 

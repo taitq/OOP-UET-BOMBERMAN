@@ -10,6 +10,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -28,6 +30,7 @@ public class Animation {
     public static CreateMap map;
     public static Stage thisStage;
     public int type;
+    public static int level = 1;
 
     public Animation(int type) {
         this.type = type;
@@ -46,12 +49,16 @@ public class Animation {
             @Override
             public void handle(long now) {
                 if (!gameOver) {
-                    playGame(1, scene, group);
+                    playGame(scene, group);
 
                 } else {
                     gameOver = false;
                     this.stop();
+                    Audio.background.pause();
                     choice();
+                   /* Audio.bomberDie.setOnEndOfMedia(() -> {
+
+                    });*/
                 }
                 try {
                     TimeUnit.NANOSECONDS.sleep(delay());
@@ -98,7 +105,11 @@ public class Animation {
         return false;
     }
 
-    public static void playGame(int level, Scene scene, Group group) {
+    public static void playGame(Scene scene, Group group) {
+        Audio.lobby.pause();
+        Audio.background.setVolume(0.5);
+        Audio.background.play();
+        Audio.background.setCycleCount(MediaPlayer.INDEFINITE);
         List<Bomb> bombList = Bomber.getBombList();
         for (Bomb bomb : bombList) {
             //remove bomb which are explosive.
@@ -125,7 +136,7 @@ public class Animation {
             map = new CreateMap(map.type);
             map.createMap(level, scene);
             map.renderMap(group);
-            playGame(level, scene, group);
+            playGame(scene, group);
         }
         if (checkGameOver(group)) {
             return;

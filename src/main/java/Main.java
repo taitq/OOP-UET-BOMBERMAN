@@ -1,5 +1,6 @@
 
 import Controller.Lobby;
+import Graphics.Audio;
 import Graphics.CreateMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -38,12 +39,7 @@ public class Main extends Application {
 */
         try {
             // play audio background
-            File file = new File("src/main/resources/Music/test.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.loop(LOOP_CONTINUOUSLY);
-            clip.start();
+            Audio.lobby.play();
             FXMLLoader lobby = new FXMLLoader(getClass().getResource("FXML/Lobby.fxml"));
             Scene lobbyScene = new Scene(lobby.load(), CreateMap.WIDTH, CreateMap.HEIGHT);
 
