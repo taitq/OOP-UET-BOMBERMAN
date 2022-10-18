@@ -87,7 +87,7 @@ public class Bomber2 extends Bomber {
             setImage(Sprite.player2_right[(time / 5 + 1) % 3]);
             direction = 'r';
         }
-        if (keyListener.isPressed(KeyCode.SPACE)) {
+        if (keyListener.isPressed(KeyCode.ENTER)) {
             setBomb(x + width / 2, y + height / 2);
         }
         isRunning = isPressed;

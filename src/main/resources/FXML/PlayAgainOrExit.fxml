@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0"
             prefWidth="930.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
@@ -12,25 +13,32 @@
       <ImageView fitHeight="420.0" fitWidth="930.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0"
                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="/Picture/gameOver.jpg"/>
+            <Image url="@../Picture/gameOver.png"/>
          </image>
       </ImageView>
-      <Button layoutX="42.0" layoutY="227.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="43.0"
-              prefWidth="125.0" text="PLAY AGAIN" textFill="#190748">
+      <Button alignment="CENTER" layoutX="672.0" layoutY="210.0" mnemonicParsing="false" onAction="#playAgain"
+              prefHeight="58.0" prefWidth="161.0" text="PLAY AGAIN" textFill="#190748">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="/Picture/playAgain.jpg"/>
+                  <Image url="@../Picture/playAgainIcon.png"/>
                </image>
             </ImageView>
          </graphic>
+         <font>
+            <Font name="System Bold Italic" size="12.0"/>
+         </font>
       </Button>
-      <Button layoutX="41.0" layoutY="299.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="32.0"
-              prefWidth="126.0" text="EXIT">
+      <Button alignment="BOTTOM_LEFT" layoutX="671.0" layoutY="287.0" mnemonicParsing="false" onAction="#exitGame"
+              prefHeight="58.0" prefWidth="162.0" text="           EXIT" textFill="#25096b"
+              AnchorPane.bottomAnchor="75.0" AnchorPane.topAnchor="287.0">
+         <font>
+            <Font name="Arial Bold Italic" size="12.0"/>
+         </font>
          <graphic>
-            <ImageView fitHeight="43.0" fitWidth="68.0" pickOnBounds="true" smooth="false">
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="/Picture/exit.jpg"/>
+                  <Image url="@../Picture/exit.png"/>
                </image>
             </ImageView>
          </graphic>

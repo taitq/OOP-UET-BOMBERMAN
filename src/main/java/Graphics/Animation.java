@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -50,6 +51,7 @@ public class Animation {
         thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         map.createMap(scene);
         map.renderMap(group);
+        Menu menu = new Menu(group);
         lastTime = System.nanoTime();
 
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -116,6 +118,7 @@ public class Animation {
         if (checkGameOver(group)) {
             choice();
         }
+        Menu.updateMenu();
         Audio.lobby.pause();
         Audio.background.setVolume(0.5);
         Audio.background.play();
@@ -216,7 +219,4 @@ public class Animation {
         }
     }
 
-    public void resetGame() {
-        gameOver = false;
-    }
 }

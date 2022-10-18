@@ -47,8 +47,8 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             Parent choiceRoot = loader.load(fileInputStream);
             menuScene = new Scene(choiceRoot);
-
             primaryStage.setScene(menuScene);
+            primaryStage.setTitle("BOMBERMAN UET ");
             primaryStage.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
