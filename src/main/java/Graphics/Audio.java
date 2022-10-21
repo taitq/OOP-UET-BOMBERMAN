@@ -20,6 +20,7 @@ public class Audio {
     public static final MediaPlayer gameOver = media("gameOver");
     public static final MediaPlayer victory = media("victory");
     public static final MediaPlayer nextLevel = media("nextLevel");
+    public static boolean sound = true;
 
     public static MediaPlayer media(String name) {
         try {

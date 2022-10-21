@@ -203,6 +203,8 @@ public class Sprite {
     public static final Image powerup_speed = newImage("powerup_speed", SizeOfTile, SizeOfTile);
     public static final Image powerup_wallpass = newImage("powerup_wallpass", SizeOfTile, SizeOfTile);
     public static final Image wall = newImage("wall", SizeOfTile, SizeOfTile);
+    public static final Image soundOn = newImage("sound", 50, 50);
+    public static final Image soundOff = newImage("offSound", 50, 50);
 
     //hàm set image rút gọn.
     private static Image newImage(String name, int w, int h) {

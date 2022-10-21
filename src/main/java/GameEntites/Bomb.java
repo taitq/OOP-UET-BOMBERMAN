@@ -73,8 +73,10 @@ public class Bomb extends UnmoveEntity implements Obstacle {
         }
         //bomb bắt đầu nổ.s
         if(remainingFrame == -1) {
-            Audio.explosion.play();
-            Audio.explosion.setOnEndOfMedia(Audio.explosion::stop);
+            if (Audio.sound) {
+                Audio.explosion.play();
+                Audio.explosion.setOnEndOfMedia(Audio.explosion::stop);
+            }
             explode = true;
             flameList.add(new Flame(x, y, null, Sprite.bomb_exploded));
             // lấy tọa độ r,c của bomb trên map.

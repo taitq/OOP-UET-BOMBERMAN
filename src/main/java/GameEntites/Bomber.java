@@ -205,8 +205,11 @@ public class Bomber extends MoveAnimation {
      */
     protected void setBomb(int x, int y) {
         if (bombList.size() < numberOfBomb) {
-            Audio.setBomb.play();
-            Audio.setBomb.setOnEndOfMedia(Audio.setBomb::stop);
+            if (Audio.sound) {
+                Audio.setBomb.play();
+                Audio.setBomb.setOnEndOfMedia(Audio.setBomb::stop);
+            }
+
             // làm tròn tọa độ x, y.
             x -= x % Sprite.SizeOfTile;
             y -= (y - Sprite.MenuSize) % Sprite.SizeOfTile;
@@ -260,9 +263,11 @@ public class Bomber extends MoveAnimation {
      * describe state be killed of bomber
      */
     public void killed() {
-        Audio.bomberDie.setVolume(0.5);
-        Audio.bomberDie.play();
-        Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
+        if (Audio.sound) {
+            Audio.bomberDie.setVolume(0.5);
+            Audio.bomberDie.play();
+            Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
+        }
         setImage(Sprite.player_dead[0]);
     }
 
@@ -283,8 +288,10 @@ public class Bomber extends MoveAnimation {
             int tmpY = y + height / 2;
             if (tmpX >= item.getX() && tmpX < item.getX() + Sprite.SizeOfTile
                     && tmpY >= item.getY() && tmpY < item.getY() + Sprite.SizeOfTile) {
-                Audio.item.play();
-                Audio.item.setOnEndOfMedia(Audio.item::stop);
+                if (Audio.sound) {
+                    Audio.item.play();
+                    Audio.item.setOnEndOfMedia(Audio.item::stop);
+                }
                 usedItem = item;
             }
         }

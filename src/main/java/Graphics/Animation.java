@@ -3,6 +3,7 @@ package Graphics;
 import GameEntites.Bomb;
 import GameEntites.Bomber;
 import GameEntites.Flame;
+import Run.Main;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -11,15 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -119,10 +116,12 @@ public class Animation {
             choice();
         }
         Menu.updateMenu();
-        Audio.lobby.pause();
-        Audio.background.setVolume(0.5);
-        Audio.background.play();
-        Audio.background.setCycleCount(MediaPlayer.INDEFINITE);
+        if (Audio.sound) {
+            Audio.lobby.pause();
+            Audio.background.setVolume(0.5);
+            Audio.background.play();
+            Audio.background.setCycleCount(MediaPlayer.INDEFINITE);
+        }
         List<List<Bomb>> bombList = new ArrayList<>();
         for (int i = 0; i < CreateMap.bomberList.size(); i++) {
             bombList.add(CreateMap.bomberList.get(i).getBombList());
@@ -157,8 +156,10 @@ public class Animation {
             Bomber.numberBomberLive = 0;
             map = new CreateMap(map.type);
             CreateMap.level++;
-            Audio.nextLevel.play();
-            Audio.nextLevel.setOnEndOfMedia(Audio.nextLevel::stop);
+            if (Audio.sound) {
+                Audio.nextLevel.play();
+                Audio.nextLevel.setOnEndOfMedia(Audio.nextLevel::stop);
+            }
             if (CreateMap.level <= CreateMap.LEVEL_MAX) {
                 map.createMap(scene);
                 map.renderMap(group);
@@ -188,18 +189,10 @@ public class Animation {
             thisStage.show();
             Audio.victory.play();
             Audio.victory.setOnEndOfMedia(() -> {
-                try {
-
-                    Audio.lobby.play();
-
-                    thisStage.setScene(Run.Main.menuScene);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                Audio.sound = true;
+                Audio.lobby.play();
+                thisStage.setScene(Main.menuScene);
             });
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -212,8 +205,10 @@ public class Animation {
             Parent choiceRoot = loader.load(fileInputStream);
             Scene choiceScene = new Scene(choiceRoot);
             thisStage.setScene(choiceScene);
-            Audio.gameOver.play();
-            Audio.gameOver.setOnEndOfMedia(Audio.gameOver::stop);
+            if (Audio.sound) {
+                Audio.gameOver.play();
+                Audio.gameOver.setOnEndOfMedia(Audio.gameOver::stop);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

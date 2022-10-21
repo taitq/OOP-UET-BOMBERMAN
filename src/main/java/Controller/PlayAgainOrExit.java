@@ -18,12 +18,12 @@ public class PlayAgainOrExit {
     @FXML
     public void playAgain(ActionEvent event) {
         CreateMap.level = 1;
+        Bomber.numberBomberLive = 0;
         Audio.gameOver.pause();
         Audio.menuSelect.play();
         Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Animation.gameOver = false;
         int type = Animation.map.type;
-        Bomber.numberBomberLive = type;
         Stage thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Group group = new Group();
         Canvas canvas = new Canvas(CreateMap.WIDTH, CreateMap.HEIGHT);

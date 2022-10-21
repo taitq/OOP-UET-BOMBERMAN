@@ -9,10 +9,16 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import Graphics.Sprite;
+
+import static javafx.application.Platform.exit;
 
 public class Lobby {
     @FXML
+    ImageView soundImage;
+
     public void onePlayer(ActionEvent event) throws Exception {
         CreateMap.level = 1;
         Audio.menuSelect.play();
@@ -28,6 +34,7 @@ public class Lobby {
         primaryStage.setScene(scene);
     }
 
+    @FXML
     public void twoPlayer(ActionEvent event) {
         CreateMap.level = 1;
         Audio.menuSelect.play();
@@ -42,5 +49,23 @@ public class Lobby {
         onePlayer.animation(scene, group, event);
         primaryStage.setScene(scene);
 
+    }
+
+    @FXML
+    public void out() {
+        exit();
+    }
+
+    @FXML
+    public void sound() {
+        Audio.sound = (!Audio.sound);
+        if (Audio.sound) {
+            Audio.lobby.setVolume(0.3);
+            Audio.lobby.play();
+            soundImage.setImage(Sprite.soundOn);
+        } else {
+            Audio.lobby.stop();
+            soundImage.setImage(Sprite.soundOff);
+        }
     }
 }
