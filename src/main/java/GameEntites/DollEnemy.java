@@ -55,14 +55,16 @@ public class DollEnemy extends Enemy {
     private void BFS() {
         updateType();
         Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-        int r = (y - Sprite.MenuSize + height / 2 - 1) / Sprite.SizeOfTile;
-        int c = (x + width / 2 - 1) / Sprite.SizeOfTile;
+        int rE = (y - Sprite.MenuSize + height / 2 - 1) / Sprite.SizeOfTile;
+        int cE = (x + width / 2 - 1) / Sprite.SizeOfTile;
+        boolean enemyInFlame = false;
         for(int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
                 depth[i][j] = MAX1;
             }
         }
-        if(type[r][c] == 1) {
+        if(type[rE][cE] == 1) {
+            enemyInFlame = true;
             for(int i = 0; i < R; i++) {
                 for(int j = 0; j < C; j++) {
                     if(type[i][j] == 0) {
@@ -73,8 +75,8 @@ public class DollEnemy extends Enemy {
             }
         }
         for(Bomber bomber : Animation.map.bomberList) {
-            r = (bomber.getY() - Sprite.MenuSize + bomber.height / 2 - 1) / Sprite.SizeOfTile;
-            c = (bomber.getX() + bomber.width / 2 - 1) / Sprite.SizeOfTile;
+            int r = (bomber.getY() - Sprite.MenuSize + bomber.height / 2 - 1) / Sprite.SizeOfTile;
+            int c = (bomber.getX() + bomber.width / 2 - 1) / Sprite.SizeOfTile;
             if(type[r][c] != 2) {
                 depth[r][c] = 0;
                 queue.add(new Pair(r, c));
@@ -82,11 +84,13 @@ public class DollEnemy extends Enemy {
         }
 
         while (!queue.isEmpty()) {
-            r = queue.peek().getKey();
-            c = queue.peek().getValue();
+            int r = queue.peek().getKey();
+            int c = queue.peek().getValue();
             queue.remove();
             for (int i = 0; i < 4; i++) {
-                if (type[r + row[i]][c + col[i]] == 0 || type[r + row[i]][c + col[i]] == 1) {
+                if (type[r + row[i]][c + col[i]] == 0
+                        || (type[r + row[i]][c + col[i]] == 1 && enemyInFlame == true)
+                        || (r + row[i] == rE && c + col[i] == cE)) {
                     if (depth[r + row[i]][c + col[i]] > depth[r][c] + 1) {
                         depth[r + row[i]][c + col[i]] = depth[r][c] + 1;
                         queue.add(new Pair(r + row[i], c + col[i]));
