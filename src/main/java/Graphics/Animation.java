@@ -38,20 +38,22 @@ public class Animation {
     public int type;
     public static boolean victory = false;
     public static AnimationTimer animationTimer;
-    public Menu menu = new Menu();
+    public static Menu menu;
 
     public Animation(int type) {
         this.type = type;
         gameOver = false;
         map = new CreateMap(type);
+        menu = new Menu();
     }
 
     public void animation(Scene scene, Group group, ActionEvent event) {
         thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         map.createMap(scene);
         map.renderMap(group);
-        lastTime = System.nanoTime();
         menu.initMenu(group);
+        lastTime = System.nanoTime();
+
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {

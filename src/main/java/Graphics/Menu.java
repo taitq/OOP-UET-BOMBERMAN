@@ -1,5 +1,6 @@
 package Graphics;
 
+import GameEntites.Bomber;
 import Run.Main;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -38,7 +39,10 @@ public class Menu {
         level.setLayoutX(460);
         pauseView.setLayoutX(50);
         playView.setLayoutX(100);
-        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+        System.out.println(CreateMap.type);
+        System.out.println(CreateMap.bomberList.size());
+        System.out.println();
+        for (int i = 0; i < CreateMap.type; i++) {
             ImageView player = new ImageView(Sprite.p[i]);
             player.setLayoutX(200 + i * 400);
 
@@ -65,15 +69,15 @@ public class Menu {
             playerList.add(player);
         }
 
-        group.getChildren().addAll(level, pauseView, playView);
-        for (int i = 0; i < playerList.size(); i++) {
+        group.getChildren().addAll(level, pauseView, playView, back);
+        for (int i = 0; i < CreateMap.type; i++) {
             group.getChildren().addAll(playerList.get(i), speedList.get(i), numberBomb.get(i)
                     , numberBombLabelList.get(i), speedLabelList.get(i));
         }
     }
 
     public void updateMenu(Scene scene) {
-        //player();
+        player();
         setLevel();
         pause();
         play();
@@ -103,7 +107,12 @@ public class Menu {
     }
 
     public void player() {
-        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+       /* System.out.println(CreateMap.bomberList.size());
+        System.out.println(Bomber.numberBomberLive);
+        System.out.println(numberBombLabelList.size());
+        System.out.println(speedLabelList.size());
+        System.out.println();*/
+        for (int i = 0; i < Bomber.numberBomberLive; i++) {
             numberBombLabelList.get(i).setText(String.valueOf(CreateMap.bomberList.get(i).getNumberOfBomb()));
             speedLabelList.get(i).setText(String.valueOf(CreateMap.bomberList.get(i).getSpeed()));
         }
@@ -121,7 +130,7 @@ public class Menu {
     }
 
     public void numberBombList() {
-        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+        for (int i = 0; i < Bomber.numberBomberLive; i++) {
             numberBombLabelList.get(i).setText(String.valueOf(CreateMap.bomberList.get(i).getNumberOfBomb()));
         }
     }

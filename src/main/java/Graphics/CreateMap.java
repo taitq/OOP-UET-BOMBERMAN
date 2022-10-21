@@ -24,7 +24,7 @@ public class CreateMap {
     public List<Item> itemList;
     public Portal portal;
     // type 1 player/2 player.
-    public int type;
+    public static int type;
     public static int level = 1;
     public static int LEVEL_MAX = 3;
 
@@ -33,7 +33,7 @@ public class CreateMap {
         enemyList = new ArrayList<>();
         bomberList = new ArrayList<>();
         itemList = new ArrayList<>();
-        this.type = type;
+        CreateMap.type = type;
     }
 
     /**
@@ -192,7 +192,7 @@ public class CreateMap {
             if (enemyList.isEmpty()) {
                 bomber.checkIsGoToPortal(portal);
             }
-            if (bomber.isGoToPortal()) {
+            if (Bomber.isGoToPortal()) {
                 System.out.println("qua man");
                 // qua màn.
             }

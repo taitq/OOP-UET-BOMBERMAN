@@ -1,8 +1,7 @@
 package Controller;
 
-import Graphics.Animation;
-import Graphics.Audio;
-import Graphics.CreateMap;
+import GameEntites.Bomber;
+import Graphics.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -11,16 +10,23 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import Graphics.Sprite;
+
+import java.util.ArrayList;
 
 import static javafx.application.Platform.exit;
 
 public class Lobby {
+    public static Menu menu = new Menu();
     @FXML
     ImageView soundImage;
 
     public void onePlayer(ActionEvent event) throws Exception {
         CreateMap.level = 1;
+        Bomber.numberBomberLive = 0;
+        CreateMap.type = 1;
+        CreateMap.bomberList = new ArrayList<>();
+        CreateMap.listEntity = new ArrayList<>();
+
         Audio.menuSelect.play();
         Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -36,7 +42,11 @@ public class Lobby {
 
     @FXML
     public void twoPlayer(ActionEvent event) {
+        CreateMap.type = 2;
         CreateMap.level = 1;
+        Bomber.numberBomberLive = 0;
+        CreateMap.listEntity = new ArrayList<>();
+        CreateMap.bomberList = new ArrayList<>();
         Audio.menuSelect.play();
         Audio.menuSelect.setOnEndOfMedia(Audio.menuSelect::stop);
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
