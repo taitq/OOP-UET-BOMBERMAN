@@ -39,9 +39,9 @@ public class Menu {
         level.setLayoutX(460);
         pauseView.setLayoutX(50);
         playView.setLayoutX(100);
-        System.out.println(CreateMap.type);
+       /* System.out.println(CreateMap.type);
         System.out.println(CreateMap.bomberList.size());
-        System.out.println();
+        System.out.println();*/
         for (int i = 0; i < CreateMap.type; i++) {
             ImageView player = new ImageView(Sprite.p[i]);
             player.setLayoutX(200 + i * 400);
@@ -76,12 +76,12 @@ public class Menu {
         }
     }
 
-    public void updateMenu(Scene scene) {
+    public void updateMenu(Scene scene, Group group) {
         player();
         setLevel();
         pause();
         play();
-        back(scene);
+        back(scene, group);
         numberBombList();
     }
 
@@ -118,13 +118,14 @@ public class Menu {
         }
     }
 
-    public void back(Scene scene) {
+    public void back(Scene scene, Group group) {
         Stage thisStage = (Stage) scene.getWindow();
         back.setCursor(Cursor.HAND);
         back.setOnMouseClicked(mouseEvent -> {
             Audio.menuSelect.play();
             Audio.background.pause();
             Audio.lobby.play();
+            Animation.animationTimer.stop();
             thisStage.setScene(Main.menuScene);
         });
     }
