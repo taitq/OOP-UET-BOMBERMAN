@@ -39,9 +39,9 @@ public class Menu {
         level.setLayoutX(460);
         pauseView.setLayoutX(50);
         playView.setLayoutX(100);
-        System.out.println(CreateMap.type);
+       /* System.out.println(CreateMap.type);
         System.out.println(CreateMap.bomberList.size());
-        System.out.println();
+        System.out.println();*/
         for (int i = 0; i < CreateMap.type; i++) {
             ImageView player = new ImageView(Sprite.p[i]);
             player.setLayoutX(200 + i * 400);
@@ -76,19 +76,21 @@ public class Menu {
         }
     }
 
-    public void updateMenu(Scene scene) {
+    public void updateMenu(Scene scene, Group group) {
         player();
         setLevel();
         pause();
         play();
-        back(scene);
+        back(scene, group);
         numberBombList();
     }
 
     public void pause() {
         pauseView.setCursor(Cursor.HAND);
         pauseView.setOnMouseClicked(mouseEvent -> {
-            Audio.menuSelect.play();
+            if (Audio.menuSelect != null) {
+                Audio.menuSelect.play();
+            }
             Animation.animationTimer.stop();
         });
     }
@@ -96,7 +98,9 @@ public class Menu {
     public void play() {
         playView.setCursor(Cursor.HAND);
         playView.setOnMouseClicked(mouseEvent -> {
-            Audio.menuSelect.play();
+            if (Audio.menuSelect != null) {
+                Audio.menuSelect.play();
+            }
             Animation.animationTimer.start();
         });
     }
@@ -118,13 +122,17 @@ public class Menu {
         }
     }
 
-    public void back(Scene scene) {
+    public void back(Scene scene, Group group) {
         Stage thisStage = (Stage) scene.getWindow();
         back.setCursor(Cursor.HAND);
         back.setOnMouseClicked(mouseEvent -> {
-            Audio.menuSelect.play();
-            Audio.background.pause();
-            Audio.lobby.play();
+            if (Audio.menuSelect != null) {
+                Audio.menuSelect.play();
+            }
+            if (Audio.background != null) {
+                Audio.background.pause();
+            }
+            Animation.animationTimer.stop();
             thisStage.setScene(Main.menuScene);
         });
     }

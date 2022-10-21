@@ -118,7 +118,7 @@ public class Animation {
         if (checkGameOver(group)) {
             choice();
         }
-        menu.updateMenu(scene);
+        menu.updateMenu(scene, group);
         if (Audio.sound) {
             Audio.lobby.pause();
             Audio.background.setVolume(0.5);

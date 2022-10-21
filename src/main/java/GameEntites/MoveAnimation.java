@@ -21,10 +21,17 @@ public abstract class MoveAnimation extends AnimationEntity {
     protected int speed;
     protected int width;
     protected int height;
+    protected boolean wallPass;
 
     public MoveAnimation(int x, int y, Image image, int speed) {
         super(x, y, image);
         this.speed = speed;
+        wallPass = false;
+    }
+
+    //kiểm tra xem ô có nằm trong map ko, trừ viền.
+    private boolean isValidBox(int r, int c) {
+        return r > 0 && r < CreateMap.COLUMN - 1 && c > 0 && c < CreateMap.ROW - 1;
     }
 
     //kiểm tra xem ô [row, col] trong map có chứa vật cản ko.
@@ -32,6 +39,9 @@ public abstract class MoveAnimation extends AnimationEntity {
         int r = (y - Sprite.MenuSize) / Sprite.SizeOfTile;
         int c = x / Sprite.SizeOfTile;
         if (CreateMap.listEntity.get(r).get(c) instanceof Obstacle) {
+            if(wallPass && CreateMap.listEntity.get(r).get(c) instanceof Wall && isValidBox(r, c)) {
+                return false;
+            }
             return true;
         }
         for (Bomber bomber : CreateMap.bomberList) {

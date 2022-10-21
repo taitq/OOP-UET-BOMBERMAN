@@ -107,6 +107,14 @@ public class CreateMap {
                             //chua biet lam gi.
                             //enemyList.add(new MobEnemy(x, y, Sprite.oneal_left[0], 1));
                         }
+                        case '7' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new OvapiEnemy(x, y, Sprite.ovapi_left[0], 1));
+                        }
+                        case '8' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            enemyList.add(new PassEnemy(x, y, Sprite.pass_left[0], 1));
+                        }
                         default -> temp.add(new Grass(x, y, Sprite.grass));
                     }
                 }

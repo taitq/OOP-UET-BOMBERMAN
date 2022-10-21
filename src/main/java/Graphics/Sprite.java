@@ -142,6 +142,28 @@ public class Sprite {
             newImage("oneal_right2", SizeOfTile, SizeOfTile),
             newImage("oneal_right3", SizeOfTile, SizeOfTile),
     };
+    public static final Image ovapi_dead = newImage("ovapi_dead", SizeOfTile, SizeOfTile);
+    public static final Image[] ovapi_left = {
+            newImage("ovapi_left1", SizeOfTile, SizeOfTile),
+            newImage("ovapi_left2", SizeOfTile, SizeOfTile),
+            newImage("ovapi_left3", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] ovapi_right = {
+            newImage("ovapi_right1", SizeOfTile, SizeOfTile),
+            newImage("ovapi_right2", SizeOfTile, SizeOfTile),
+            newImage("ovapi_right3", SizeOfTile, SizeOfTile),
+    };
+    public static final Image pass_dead = newImage("pass_dead", SizeOfTile, SizeOfTile);
+    public static final Image[] pass_left = {
+            newImage("pass_left1", SizeOfTile, SizeOfTile),
+            newImage("pass_left2", SizeOfTile, SizeOfTile),
+            newImage("pass_left3", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] pass_right = {
+            newImage("pass_right1", SizeOfTile, SizeOfTile),
+            newImage("pass_right2", SizeOfTile, SizeOfTile),
+            newImage("pass_right3", SizeOfTile, SizeOfTile),
+    };
     public static final Image[] player_dead = {
             newImage("player_dead1", SizeOfTile, SizeOfTile),
             newImage("player_dead2", SizeOfTile, SizeOfTile),
