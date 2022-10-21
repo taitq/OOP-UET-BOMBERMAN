@@ -88,7 +88,9 @@ public class Menu {
     public void pause() {
         pauseView.setCursor(Cursor.HAND);
         pauseView.setOnMouseClicked(mouseEvent -> {
-            Audio.menuSelect.play();
+            if (Audio.menuSelect != null) {
+                Audio.menuSelect.play();
+            }
             Animation.animationTimer.stop();
         });
     }
@@ -96,7 +98,9 @@ public class Menu {
     public void play() {
         playView.setCursor(Cursor.HAND);
         playView.setOnMouseClicked(mouseEvent -> {
-            Audio.menuSelect.play();
+            if (Audio.menuSelect != null) {
+                Audio.menuSelect.play();
+            }
             Animation.animationTimer.start();
         });
     }
@@ -122,9 +126,12 @@ public class Menu {
         Stage thisStage = (Stage) scene.getWindow();
         back.setCursor(Cursor.HAND);
         back.setOnMouseClicked(mouseEvent -> {
-            Audio.menuSelect.play();
-            Audio.background.pause();
-            Audio.lobby.play();
+            if (Audio.menuSelect != null) {
+                Audio.menuSelect.play();
+            }
+            if (Audio.background != null) {
+                Audio.background.pause();
+            }
             Animation.animationTimer.stop();
             thisStage.setScene(Main.menuScene);
         });
