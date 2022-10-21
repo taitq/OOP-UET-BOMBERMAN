@@ -65,8 +65,11 @@ public class KondoriaEnemy extends Enemy {
             } else {
                 minType = Math.min(minType, type[r + row[oppositeDirection]][c + col[oppositeDirection]]);
                 int temp = random.nextInt(4);
-                while (type[r + row[temp]][c + col[temp]] != minType) {
+                //trường hợp vòng while chạy vô hạn nên thêm biến times vào đề ko bị chạy vô hạn.
+                int times = 10;
+                while (type[r + row[temp]][c + col[temp]] != minType && times > 0) {
                     temp = random.nextInt(4);
+                    times--;
                 }
                 if(minType == 0) {
                     oldDirection = direction[temp];
@@ -80,9 +83,12 @@ public class KondoriaEnemy extends Enemy {
                     minType = Math.min(minType, type[r + row[i]][c + col[i]]);
                 }
             }
+            //trường hợp vòng while chạy vô hạn nên thêm biến times vào đề ko bị chạy vô hạn.
+            int times = 10;
             int temp = random.nextInt(4);
-            while (type[r + row[temp]][c + col[temp]] != minType) {
+            while (type[r + row[temp]][c + col[temp]] != minType && times > 0) {
                 temp = random.nextInt(4);
+                times--;
             }
             oldDirection = direction[temp];
         }
