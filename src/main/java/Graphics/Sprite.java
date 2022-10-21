@@ -1,9 +1,9 @@
 package Graphics;
 
-import com.sun.glass.ui.Pixels;
-import javafx.scene.image.*;
-import javafx.scene.paint.Color;
-import org.w3c.dom.css.RGBColor;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -152,6 +152,7 @@ public class Sprite {
             newImage("player_down_1", SizeOfTile, SizeOfTile),
             newImage("player_down_2", SizeOfTile, SizeOfTile),
     };
+
     public static final Image[] player_left = {
             newImage("player_left", SizeOfTile, SizeOfTile),
             newImage("player_left_1", SizeOfTile, SizeOfTile),
@@ -167,6 +168,36 @@ public class Sprite {
             newImage("player_up_1", SizeOfTile, SizeOfTile),
             newImage("player_up_2", SizeOfTile, SizeOfTile),
     };
+    public static final Image[] player2_dead = {
+            newImage("player2_dead1", SizeOfTile, SizeOfTile),
+            newImage("player2_dead2", SizeOfTile, SizeOfTile),
+            newImage("player2_dead3", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_down = {
+            newImage("player2_down", SizeOfTile, SizeOfTile),
+            newImage("player2_down_1", SizeOfTile, SizeOfTile),
+            newImage("player2_down_2", SizeOfTile, SizeOfTile),
+    };
+
+    public static final Image[] player2_left = {
+            newImage("player2_left", SizeOfTile, SizeOfTile),
+            newImage("player2_left_1", SizeOfTile, SizeOfTile),
+            newImage("player2_left_2", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_right = {
+            newImage("player2_right", SizeOfTile, SizeOfTile),
+            newImage("player2_right_1", SizeOfTile, SizeOfTile),
+            newImage("player2_right_2", SizeOfTile, SizeOfTile),
+    };
+    public static final Image[] player2_up = {
+            newImage("player2_up", SizeOfTile, SizeOfTile),
+            newImage("player2_up_1", SizeOfTile, SizeOfTile),
+            newImage("player2_up_2", SizeOfTile, SizeOfTile),
+    };
+    public static final Image p[] = {
+            newImage("p1", 30, 30),
+            newImage("p2", 30, 30)
+    };
     public static final Image portal = newImage("portal", SizeOfTile, SizeOfTile);
     public static final Image powerup_bombpass = newImage("powerup_bombpass", SizeOfTile, SizeOfTile);
     public static final Image powerup_bombs = newImage("powerup_bombs", SizeOfTile, SizeOfTile);
@@ -176,6 +207,13 @@ public class Sprite {
     public static final Image powerup_speed = newImage("powerup_speed", SizeOfTile, SizeOfTile);
     public static final Image powerup_wallpass = newImage("powerup_wallpass", SizeOfTile, SizeOfTile);
     public static final Image wall = newImage("wall", SizeOfTile, SizeOfTile);
+    public static final Image soundOn = newImage("sound", 50, 50);
+    public static final Image soundOff = newImage("offSound", 50, 50);
+    public static final Image back = newImage("back", 30, 30);
+    public static final Image pause = newImage("pause", 30, 30);
+    public static final Image play = newImage("play", 30, 30);
+    public static final Image speed = newImage("speed", 30, 30);
+    public static final Image bombIcon = newImage("bombIcon", 30, 30);
 
     //hàm set image rút gọn.
     private static Image newImage(String name, int w, int h) {

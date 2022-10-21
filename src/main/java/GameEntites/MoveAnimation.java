@@ -34,25 +34,31 @@ public abstract class MoveAnimation extends AnimationEntity {
         if (CreateMap.listEntity.get(r).get(c) instanceof Obstacle) {
             return true;
         }
-        for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
-            if (!bomb.equals(tmp)) {
-                if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                        && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
-                    return true;
+        for (Bomber bomber : CreateMap.bomberList) {
+            for (Bomb bomb : bomber.getBombList()) {
+                if (!bomb.equals(tmp)) {
+                    if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
+                            && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
+                        return true;
+                    }
                 }
             }
         }
+
         return false;
     }
 
     //kiểm tra xem ô(x,y) có bomb ko.
     private Bomb bombInBox(int x, int y) {
-        for (Bomb bomb : Animation.map.bomberList.get(0).getBombList()) {
-            if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
-                    && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
-                return bomb;
+        for (Bomber bomber : CreateMap.bomberList) {
+            for (Bomb bomb : bomber.getBombList()) {
+                if (bomb.getX() <= x && x < bomb.getX() + Sprite.SizeOfTile
+                        && bomb.getY() <= y && y < bomb.getY() + Sprite.SizeOfTile) {
+                    return bomb;
+                }
             }
         }
+
         return null;
     }
 
@@ -167,13 +173,13 @@ public abstract class MoveAnimation extends AnimationEntity {
     public boolean checkCollisonRectangle(int x, int y, int w, int h) {
         int u = Math.min(getX() + width, x + w) - Math.max(getX(), x);
         int v = Math.min(getY() + height, y + h) - Math.max(getY(), y);
-        if(u >= 0 && v >= 0) {
-            if(u * v * 6 >= width * height) return true;
+        if (u >= 0 && v >= 0) {
+            if (u * v * 6 >= width * height) return true;
         }
         return false;
     }
 
-    public static void main(String[] args) {
-
+    public int getSpeed() {
+        return speed;
     }
 }

@@ -48,6 +48,7 @@
             <artifactId>javafx-swing</artifactId>
             <version>13.0.2</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -70,7 +71,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>Main
+                            <mainClass>Run.Main
                             </mainClass>
                         </configuration>
                     </execution>

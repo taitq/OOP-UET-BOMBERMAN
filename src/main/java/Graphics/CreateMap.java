@@ -20,25 +20,31 @@ public class CreateMap {
     public static int HEIGHT = 420;
     public static List<List<Entity>> listEntity;
     public List<Enemy> enemyList;
-    public List<Bomber> bomberList;
+    public static List<Bomber> bomberList;
     public List<Item> itemList;
     public Portal portal;
+    // type 1 player/2 player.
+    public static int type;
+    public static int level = 1;
+    public static int LEVEL_MAX = 3;
 
-    public CreateMap() {
+    public CreateMap(int type) {
         listEntity = new ArrayList<>();
         enemyList = new ArrayList<>();
         bomberList = new ArrayList<>();
         itemList = new ArrayList<>();
+        CreateMap.type = type;
     }
 
     /**
      * tạo map.
-     *
-     * @param level level của map.
      */
-    public void createMap(int level, Scene scene) {
+    public void createMap(Scene scene) {
         try {
             FileInputStream fileInputStream = new FileInputStream("src/main/resources/Level/Level" + level + ".txt");
+            if (type == 2) {
+                fileInputStream = new FileInputStream("src/main/resources/Level/twoPlayerLevel" + level + ".txt");
+            }
             Scanner scanner = new Scanner(fileInputStream);
             COLUMN = scanner.nextInt();
             ROW = scanner.nextInt();
@@ -71,6 +77,10 @@ public class CreateMap {
                         case 'p' -> {
                             temp.add(new Grass(x, y, Sprite.grass));
                             bomberList.add(new Bomber(x, y, Sprite.player_down[0], 3, scene));
+                        }
+                        case 'q' -> {
+                            temp.add(new Grass(x, y, Sprite.grass));
+                            bomberList.add(new Bomber2(x, y, Sprite.player2_down[0], 3, scene));
                         }
                         case '1' -> {
                             temp.add(new Grass(x, y, Sprite.grass));
@@ -176,12 +186,13 @@ public class CreateMap {
      * cac bomber xu li su kien.
      */
     public void bombersHandleInput(Group group) {
+
         for (Bomber bomber : bomberList) {
             bomber.update();
             if (enemyList.isEmpty()) {
                 bomber.checkIsGoToPortal(portal);
             }
-            if (bomber.isGoToPortal()) {
+            if (Bomber.isGoToPortal()) {
                 System.out.println("qua man");
                 // qua màn.
             }
