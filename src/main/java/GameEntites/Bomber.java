@@ -323,4 +323,5 @@ public class Bomber extends MoveAnimation {
     public int getTimeDie() {
         return timeDie;
     }
+
 }

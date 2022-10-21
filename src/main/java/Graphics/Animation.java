@@ -37,6 +37,8 @@ public class Animation {
     public static Stage thisStage;
     public int type;
     public static boolean victory = false;
+    public static AnimationTimer animationTimer;
+    public Menu menu = new Menu();
 
     public Animation(int type) {
         this.type = type;
@@ -48,10 +50,9 @@ public class Animation {
         thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         map.createMap(scene);
         map.renderMap(group);
-        Menu menu = new Menu(group);
         lastTime = System.nanoTime();
-
-        AnimationTimer animationTimer = new AnimationTimer() {
+        menu.initMenu(group);
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (!gameOver && !victory) {
@@ -111,11 +112,11 @@ public class Animation {
         return false;
     }
 
-    public static void playGame(Scene scene, Group group) {
+    public void playGame(Scene scene, Group group) {
         if (checkGameOver(group)) {
             choice();
         }
-        Menu.updateMenu();
+        menu.updateMenu(scene);
         if (Audio.sound) {
             Audio.lobby.pause();
             Audio.background.setVolume(0.5);
@@ -185,10 +186,10 @@ public class Animation {
             imageView.setFitHeight(CreateMap.HEIGHT);
             group.getChildren().add(imageView);
             Scene scene = new Scene(group);
-            thisStage.setScene(scene);
-            thisStage.show();
             Audio.victory.play();
+            thisStage.setScene(scene);
             Audio.victory.setOnEndOfMedia(() -> {
+                Audio.victory.stop();
                 Audio.sound = true;
                 Audio.lobby.play();
                 thisStage.setScene(Main.menuScene);

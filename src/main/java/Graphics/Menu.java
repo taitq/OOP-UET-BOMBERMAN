@@ -1,42 +1,128 @@
 package Graphics;
 
+import Run.Main;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    public static Label level;
-    public static ImageView bombImage;
-    public static ImageView speedImage;
-    public static Label speed;
+    public Label level;
+    public ArrayList<ImageView> playerList;
+    public ArrayList<ImageView> numberBomb;
+    public ArrayList<ImageView> speedList;
+    public List<Label> numberBombLabelList;
+    public List<Label> speedLabelList;
+    public ImageView pauseView;
+    public ImageView playView;
+    public ImageView back;
 
-    public Menu(Group group) {
+    public Menu() {
+        playerList = new ArrayList<>();
+        numberBomb = new ArrayList<>();
+        speedList = new ArrayList<>();
+        numberBombLabelList = new ArrayList<>();
+        speedLabelList = new ArrayList<>();
+        pauseView = new ImageView(Sprite.pause);
+        playView = new ImageView(Sprite.play);
+        back = new ImageView(Sprite.back);
         level = new Label("LEVEL  " + CreateMap.level);
-        level.setLayoutX(0);
-        level.setLayoutY(0);
-       
-
-        try {
-            Image image = new Image(Files.newInputStream(Paths.get("src/main/resources/Picture/bombIcon.png")));
-            bombImage = new ImageView(image);
-            bombImage.setFitWidth(30);
-            bombImage.setFitHeight(30);
-            bombImage.setLayoutX(100);
-            bombImage.setLayoutY(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        group.getChildren().addAll(level, bombImage);
     }
 
-    public static void updateMenu() {
+    public void initMenu(Group group) {
+        level.setLayoutX(460);
+        pauseView.setLayoutX(50);
+        playView.setLayoutX(100);
+        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+            ImageView player = new ImageView(Sprite.p[i]);
+            player.setLayoutX(200 + i * 400);
+
+            ImageView bomb = new ImageView(Sprite.bombIcon);
+            bomb.setLayoutX(270 + i * 400);
+
+            ImageView speed = new ImageView(Sprite.speed);
+            speed.setLayoutX(340 + i * 400);
+
+            String n = String.valueOf(CreateMap.bomberList.get(i).getNumberOfBomb());
+            Label bombLabel = new Label(n);
+            bombLabel.setLayoutX(310 + i * 400);
+            bombLabel.setLayoutY(7);
+            numberBombLabelList.add(bombLabel);
+
+            String v = String.valueOf(CreateMap.bomberList.get(i).getSpeed());
+            Label speedLabel = new Label(v);
+            speedLabel.setLayoutX(380 + i * 400);
+            speedLabel.setLayoutY(7);
+            speedLabelList.add(speedLabel);
+
+            speedList.add(speed);
+            numberBomb.add(bomb);
+            playerList.add(player);
+        }
+
+        group.getChildren().addAll(level, pauseView, playView);
+        for (int i = 0; i < playerList.size(); i++) {
+            group.getChildren().addAll(playerList.get(i), speedList.get(i), numberBomb.get(i)
+                    , numberBombLabelList.get(i), speedLabelList.get(i));
+        }
+    }
+
+    public void updateMenu(Scene scene) {
+        //player();
+        setLevel();
+        pause();
+        play();
+        back(scene);
+        numberBombList();
+    }
+
+    public void pause() {
+        pauseView.setCursor(Cursor.HAND);
+        pauseView.setOnMouseClicked(mouseEvent -> {
+            Audio.menuSelect.play();
+            Animation.animationTimer.stop();
+        });
+    }
+
+    public void play() {
+        playView.setCursor(Cursor.HAND);
+        playView.setOnMouseClicked(mouseEvent -> {
+            Audio.menuSelect.play();
+            Animation.animationTimer.start();
+        });
+    }
+
+    public void setLevel() {
+        level.setLayoutY(7);
         level.setText("LEVEL  " + CreateMap.level);
+    }
+
+    public void player() {
+        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+            numberBombLabelList.get(i).setText(String.valueOf(CreateMap.bomberList.get(i).getNumberOfBomb()));
+            speedLabelList.get(i).setText(String.valueOf(CreateMap.bomberList.get(i).getSpeed()));
+        }
+    }
+
+    public void back(Scene scene) {
+        Stage thisStage = (Stage) scene.getWindow();
+        back.setCursor(Cursor.HAND);
+        back.setOnMouseClicked(mouseEvent -> {
+            Audio.menuSelect.play();
+            Audio.background.pause();
+            Audio.lobby.play();
+            thisStage.setScene(Main.menuScene);
+        });
+    }
+
+    public void numberBombList() {
+        for (int i = 0; i < CreateMap.bomberList.size(); i++) {
+            numberBombLabelList.get(i).setText(String.valueOf(CreateMap.bomberList.get(i).getNumberOfBomb()));
+        }
     }
 }

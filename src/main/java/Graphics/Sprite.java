@@ -1,9 +1,9 @@
 package Graphics;
 
-import com.sun.glass.ui.Pixels;
-import javafx.scene.image.*;
-import javafx.scene.paint.Color;
-import org.w3c.dom.css.RGBColor;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -194,6 +194,10 @@ public class Sprite {
             newImage("player2_up_1", SizeOfTile, SizeOfTile),
             newImage("player2_up_2", SizeOfTile, SizeOfTile),
     };
+    public static final Image p[] = {
+            newImage("p1", 30, 30),
+            newImage("p2", 30, 30)
+    };
     public static final Image portal = newImage("portal", SizeOfTile, SizeOfTile);
     public static final Image powerup_bombpass = newImage("powerup_bombpass", SizeOfTile, SizeOfTile);
     public static final Image powerup_bombs = newImage("powerup_bombs", SizeOfTile, SizeOfTile);
@@ -205,6 +209,11 @@ public class Sprite {
     public static final Image wall = newImage("wall", SizeOfTile, SizeOfTile);
     public static final Image soundOn = newImage("sound", 50, 50);
     public static final Image soundOff = newImage("offSound", 50, 50);
+    public static final Image back = newImage("back", 30, 30);
+    public static final Image pause = newImage("pause", 30, 30);
+    public static final Image play = newImage("play", 30, 30);
+    public static final Image speed = newImage("speed", 30, 30);
+    public static final Image bombIcon = newImage("bombIcon", 30, 30);
 
     //hàm set image rút gọn.
     private static Image newImage(String name, int w, int h) {

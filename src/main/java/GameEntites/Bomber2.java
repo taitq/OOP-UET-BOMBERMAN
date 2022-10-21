@@ -98,9 +98,11 @@ public class Bomber2 extends Bomber {
      * describe state be killed of bomber
      */
     public void killed() {
-        Audio.bomberDie.setVolume(0.5);
-        Audio.bomberDie.play();
-        Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
+        if (Audio.sound) {
+            Audio.bomberDie.setVolume(0.5);
+            Audio.bomberDie.play();
+            Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
+        }
         setImage(Sprite.player2_dead[0]);
     }
 

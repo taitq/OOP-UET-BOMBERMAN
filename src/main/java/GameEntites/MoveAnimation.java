@@ -173,13 +173,13 @@ public abstract class MoveAnimation extends AnimationEntity {
     public boolean checkCollisonRectangle(int x, int y, int w, int h) {
         int u = Math.min(getX() + width, x + w) - Math.max(getX(), x);
         int v = Math.min(getY() + height, y + h) - Math.max(getY(), y);
-        if(u >= 0 && v >= 0) {
-            if(u * v * 6 >= width * height) return true;
+        if (u >= 0 && v >= 0) {
+            if (u * v * 6 >= width * height) return true;
         }
         return false;
     }
 
-    public static void main(String[] args) {
-
+    public int getSpeed() {
+        return speed;
     }
 }
