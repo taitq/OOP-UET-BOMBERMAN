@@ -1,10 +1,8 @@
 package GameEntites;
 
 import Graphics.Sprite;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-import java.util.Random;
 
 /**
  * là enemy đơn giản, chỉ di chuyển trái phải.

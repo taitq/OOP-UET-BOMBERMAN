@@ -2,7 +2,6 @@ package GameEntites;
 
 import javafx.scene.image.Image;
 
-import java.util.List;
 
 /**
  * Đối tượng chỉ thay đổi hiệu ứng nhưng không di chuyển.

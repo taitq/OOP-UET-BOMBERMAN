@@ -4,9 +4,9 @@
 # # # #*# # #*#*#2#3# #*#*#*# #
 #   *     ***  *      *   * * #
 # # # # # #*# # #*#*# # # # #*#
-#f         x **2 *  *         #
+#f     8   x **2 *  *    6    #
 # # # # # # # # # #*# #*# # # #
-#*  s      *  *   4  *        #
+#*  s      *  *   4  *    7   #
 # # # # #*# # # #*#*# # # # # #
 #*    b*  *       *           #
 # #*# # # # # # #*# # #2# # # #
@@ -27,13 +27,16 @@ Tiles:
 x - Portal
 
 Character:
-p - Bomber
+p - Bomber 1
+q - Bomber 2
 1 - Balloon : chỉ di chuyển trái phải
 2 - Oneal : chỉ di chuyển trên dưới
 3 - Doll : di chuyển tự động tránh bomb
 4 - Kondoria : di chuyển xuyên tường
 5 - Minvo : di chuyển tìm đường đến bomber.
 6 - Mob : nhân đôi khi chết
+7 - Ovapi : di chuyển ngẫu nhiên trên dưới trái phải.
+8 - Pass : di chuyển xuyên map.
 
 Items:
 b - Bomb Item

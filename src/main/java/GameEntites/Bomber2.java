@@ -8,7 +8,9 @@ import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
 
-
+/**
+ * player2 use a,s,d,w to move right,down,left,up respectively and enter to set bomb.
+ */
 public class Bomber2 extends Bomber {
 
     public Bomber2(int x, int y, Image image, int speed, Scene scene) {
@@ -99,8 +101,12 @@ public class Bomber2 extends Bomber {
      */
     public void killed() {
         if (Audio.sound) {
-            Audio.bomberDie.setVolume(0.5);
-            Audio.bomberDie.play();
+            if (Audio.bomberDie != null) {
+                Audio.bomberDie.setVolume(0.5);
+            }
+            if (Audio.bomberDie != null) {
+                Audio.bomberDie.play();
+            }
             Audio.bomberDie.setOnEndOfMedia(Audio.bomberDie::stop);
         }
         setImage(Sprite.player2_dead[0]);
