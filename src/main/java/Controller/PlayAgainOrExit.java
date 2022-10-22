@@ -17,7 +17,7 @@ import static javafx.application.Platform.exit;
 public class PlayAgainOrExit {
     @FXML
     public void playAgain(ActionEvent event) {
-        CreateMap.level = 1;
+        //CreateMap.level = 1;
         Bomber.numberBomberLive = 0;
         Audio.gameOver.pause();
         Audio.menuSelect.play();
